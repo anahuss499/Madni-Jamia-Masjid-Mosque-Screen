@@ -1,0 +1,1 @@
+{"name":"masjid-screen","version":"1.0.0","description":"Mosque prayer-time screen with admin panel","scripts":{"start":"node server.js"},"engines":{"node":">=18"}}

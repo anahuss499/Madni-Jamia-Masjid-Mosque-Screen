@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Admin – Madni Jamia Masjid screen</title>
+<style>
+:root{--cream:#f6f0df;--paper:#fbf7ea;--ink:#1f1c14;--mut:#6f6650;--green:#1d4a39;--brass:#a67c2e;--sand:#dccfa6;--tint:#ece2c0}
+*{box-sizing:border-box}
+body{margin:0;background:var(--cream);color:var(--ink);font:16px/1.4 "Segoe UI",system-ui,sans-serif}
+.w{max-width:60rem;margin:0 auto;padding:1rem}
+header{background:var(--green);color:var(--cream);padding:.8rem 1rem;display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap}
+header h1{margin:0;font-size:1.25rem}header a{color:#e6c673}
+section{background:var(--paper);border:1px solid var(--sand);padding:1rem;margin-top:1rem}
+h2{margin:0 0 .7rem;font-size:1.1rem;color:var(--green)}
+.g{display:grid;grid-template-columns:repeat(auto-fit,minmax(8.5rem,1fr));gap:.7rem}
+label{display:block;font-size:.85rem;color:var(--mut)}
+input,textarea,select{width:100%;font:inherit;padding:.45rem;border:1px solid var(--sand);background:#fff;color:var(--ink)}
+textarea{min-height:6rem}
+.c{display:inline-flex;align-items:center;gap:.4rem;margin:.2rem 1rem .2rem 0;color:var(--ink);font-size:.95rem;width:auto}.c input{width:auto}
+button{font:inherit;font-weight:600;padding:.5rem 1rem;border:1px solid var(--green);background:var(--green);color:var(--cream);cursor:pointer}
+button.s{background:transparent;color:var(--green)}button.d{border-color:#9b2c2c;color:#9b2c2c;background:transparent}
+.row{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center;margin-top:.8rem}
+.img{display:flex;gap:.8rem;align-items:center;border-top:1px solid var(--sand);padding:.6rem 0;flex-wrap:wrap}
+.img img{width:5rem;height:5rem;object-fit:cover;border:1px solid var(--sand)}
+.img .grow{flex:1;min-width:9rem;word-break:break-all;font-size:.85rem}
+.pv{overflow:auto;max-height:26rem;margin-top:.7rem}
+table{border-collapse:collapse;font-size:.85rem}td,th{padding:.15rem}td input{width:4.6rem;padding:.25rem}
+#msg{position:sticky;bottom:0;background:var(--tint);padding:.6rem 1rem;margin-top:1rem;display:none}
+#login{max-width:22rem;margin:20vh auto;padding:1rem}
+.hint{font-size:.85rem;color:var(--mut)}
+</style>
+</head>
+<body>
+<div id="login" style="display:none"><h2>Admin sign in</h2><label>Password<input type="password" id="pw"></label><div class="row"><button id="go">Sign in</button></div><p id="lerr" class="hint"></p></div>
+
+<div id="app" style="display:none">
+<header><h1>Madni Jamia Masjid screen – Admin</h1><a href="/" target="_blank">Open screen</a></header>
+<div class="w">
+<section><h2>Prayer calendars</h2>
+ <p class="hint">Upload a photo or screenshot of your monthly timetable. Read its times with OCR (free, works in this browser) or with AI (needs an Anthropic key on the server). Check the table, fix anything wrong, then save it to the timetable. The screen uses each day’s row automatically.</p>
+ <div class="row"><input type="file" id="file" accept="image/*" multiple style="width:auto"><button id="up">Upload</button></div>
+ <div id="imgs"></div>
+ <div id="ex" style="display:none;margin-top:.8rem">
+  <h2 id="exh">Read times</h2>
+  <div class="g">
+   <div><label>Month<input type="month" id="mon"></label></div>
+   <div><label>Column layout<select id="pre"><option value="fajr,sunrise,zuhr,asr,maghrib,isha">Begin times only</option><option value="fajr,fajrJ,sunrise,zuhr,zuhrJ,asr,asrJ,maghrib,isha,ishaJ">Begin + jamat (Fajr, Sunrise, Zuhr, Asr, Maghrib, Isha)</option><option value="custom">Custom order below</option></select></label></div>
+  </div>
+  <label style="margin-top:.6rem">Column order, left to right after the date (fajr, fajrJ = Fajr jamat, sunrise, zuhr, zuhrJ, asr, asrJ, maghrib, maghribJ, isha, ishaJ)<input id="keys"></label>
+  <div class="row"><button id="ocr">Read with OCR</button><button class="s" id="ai">Read with AI</button><span id="st" class="hint"></span></div>
+  <div class="pv" id="pv"></div>
+  <div class="row" id="sv" style="display:none"><button id="addtt">Save to timetable</button></div>
+ </div>
+ <p class="hint" id="ttinfo"></p><button class="d" id="cltt">Clear timetable</button>
+</section>
+
+<section><h2>Default times (used on days the calendar has no row for)</h2>
+ <label>Begin</label><div class="g" id="fb"></div><label style="margin-top:.7rem">Jamat</label><div class="g" id="fj"></div>
+ <div class="g" style="margin-top:.7rem"><div><label>Jumu’ah jamat<input type="time" id="jum"></label></div><div><label>Hijri date adjustment (days)<input type="number" id="off" min="-2" max="2"></label></div></div>
+ <label class="c" style="margin-top:.6rem"><input type="checkbox" id="h24">Use 24-hour clock</label>
+</section>
+
+<section><h2>Announcements and reminders</h2>
+ <label>One per line. Each one becomes a full slide.<textarea id="ann"></textarea></label>
+ <label style="margin-top:.6rem">Scrolling banner<input id="tk"></label>
+ <div style="margin-top:.6rem"><label class="c"><input type="checkbox" id="sl-phone">Phones off</label><label class="c"><input type="checkbox" id="sl-dua">Masjid du‘a</label><label class="c"><input type="checkbox" id="sl-dhikr">Dhikr after salah</label><label class="c"><input type="checkbox" id="sl-donate">Donations</label><label class="c"><input type="checkbox" id="sl-verse">Verse of the day</label></div>
+</section>
+
+<section><h2>Fundraising bar</h2>
+ <label class="c"><input type="checkbox" id="fon">Show on screen</label>
+ <div class="g"><div><label>Title<input id="ft"></label></div><div><label>Raised (£)<input type="number" id="fr" min="0"></label></div><div><label>Target (£)<input type="number" id="fg" min="0"></label></div></div>
+</section>
+
+<section><h2>Night dimming</h2>
+ <label class="c"><input type="checkbox" id="don">Dim the screen overnight</label>
+ <div class="g"><div><label>From<input type="time" id="df"></label></div><div><label>Until<input type="time" id="dt"></label></div></div>
+</section>
+<div class="row"><button id="save">Save changes</button><button class="s" id="rst">Reset times and messages</button></div>
+</div>
+<div id="msg"></div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/tesseract.js@5.1.1/dist/tesseract.min.js"></script>
+<script>
+(function(){
+var $=function(i){return document.getElementById(i)},S={},pw=sessionStorage.getItem("mjk")||"",AI=false,cur=null,rows=[];
+var P=[["fajr","Fajr"],["sunrise","Sunrise"],["zuhr","Zuhr"],["asr","Asr"],["maghrib","Maghrib"],["isha","Isha"]];
+var DEFB={fajr:"06:09",sunrise:"07:50",zuhr:"11:57",asr:"14:09",maghrib:"16:02",isha:"17:17"},DEFJ={fajr:"07:15",zuhr:"13:30",asr:"14:45",maghrib:"16:02",isha:"19:30"};
+function msg(t){var m=$("msg");m.textContent=t;m.style.display="block";clearTimeout(msg.t);msg.t=setTimeout(function(){m.style.display="none"},6000)}
+function api(p,o){o=o||{};o.headers=Object.assign({"x-admin-key":pw,"Content-Type":"application/json"},o.headers||{});
+ return fetch(p,o).then(function(r){return r.json().catch(function(){return{}}).then(function(j){if(r.status===401){login();throw new Error("Wrong password")}if(!r.ok)throw new Error(j.error||("Error "+r.status));return j})})}
+function login(m){$("app").style.display="none";$("login").style.display="block";$("lerr").textContent=m||""}
+$("go").onclick=function(){pw=$("pw").value;api("/api/auth").then(function(a){sessionStorage.setItem("mjk",pw);AI=a.ai;start()}).catch(function(e){$("lerr").textContent=e.message})};
+$("pw").onkeydown=function(e){if(e.key==="Enter")$("go").click()};
+function start(){fetch("/api/settings",{cache:"no-store"}).then(function(r){return r.json()}).then(function(o){S=o;S.b=Object.assign({},DEFB,S.b);S.j=Object.assign({},DEFJ,S.j);
+ S.images=S.images||[];S.timetable=S.timetable||{};S.sl=Object.assign({phone:true,dua:true,dhikr:true,donate:true,verse:true},S.sl);
+ S.dim=Object.assign({on:false,from:"23:00",to:"04:00"},S.dim);S.fund=Object.assign({on:false,title:"",raised:0,target:0},S.fund);
+ $("login").style.display="none";$("app").style.display="block";fill()})}
+function fld(g,p){var d=document.createElement("div"),l=document.createElement("label"),i=document.createElement("input");l.textContent=p[1];i.type="time";i.dataset.g=g;i.dataset.k=p[0];i.value=S[g][p[0]]||"";l.appendChild(i);d.appendChild(l);return d}
+function fill(){$("fb").innerHTML="";$("fj").innerHTML="";P.forEach(function(p){$("fb").appendChild(fld("b",p))});P.filter(function(p){return p[0]!=="sunrise"}).forEach(function(p){$("fj").appendChild(fld("j",p))});
+ $("jum").value=S.jumuah||"13:30";$("off").value=S.off||0;$("h24").checked=!!S.h24;$("ann").value=(S.ann||[]).join("\n");$("tk").value=S.ticker||"";
+ for(var k in S.sl)$("sl-"+k).checked=S.sl[k]!==false;
+ $("fon").checked=S.fund.on;$("ft").value=S.fund.title;$("fr").value=S.fund.raised;$("fg").value=S.fund.target;
+ $("don").checked=S.dim.on;$("df").value=S.dim.from;$("dt").value=S.dim.to;
+ if(!$("mon").value){var n=new Date();$("mon").value=n.getFullYear()+"-"+("0"+(n.getMonth()+1)).slice(-2)}
+ $("keys").value=$("pre").value==="custom"?$("keys").value:$("pre").value;imgs();tt()}
+function collect(){S.b={};S.j={};document.querySelectorAll("input[data-g]").forEach(function(i){if(i.value)S[i.dataset.g][i.dataset.k]=i.value});
+ S.jumuah=$("jum").value||"13:30";S.off=parseInt($("off").value,10)||0;S.h24=$("h24").checked;
+ S.ann=$("ann").value.split("\n").map(function(x){return x.trim()}).filter(Boolean);S.ticker=$("tk").value.trim();
+ for(var k in S.sl)S.sl[k]=$("sl-"+k).checked;
+ S.fund={on:$("fon").checked,title:$("ft").value.trim(),raised:+$("fr").value||0,target:+$("fg").value||0};
+ S.dim={on:$("don").checked,from:$("df").value||"23:00",to:$("dt").value||"04:00"}}
+function persist(t){collect();return api("/api/settings",{method:"PUT",body:JSON.stringify(S)}).then(function(r){S.ver=r.ver;msg(t||"Saved. The screen updates within 30 seconds.")}).catch(function(e){msg("Could not save: "+e.message)})}
+$("save").onclick=function(){persist()};
+$("rst").onclick=function(){if(confirm("Reset all times and messages to defaults? Images and the timetable are kept.")){S.b=Object.assign({},DEFB);S.j=Object.assign({},DEFJ);S.ann=[];S.jumuah="13:30";S.off=0;fill();persist()}};
+
+/* images */
+function imgs(){var box=$("imgs");box.innerHTML="";
+ if(!S.images.length){var p=document.createElement("p");p.className="hint";p.textContent="No images yet.";box.appendChild(p)}
+ S.images.forEach(function(im,i){var r=document.createElement("div");r.className="img";var t=document.createElement("img");t.src="/uploads/"+encodeURIComponent(im.name);t.alt="";r.appendChild(t);
+  var g=document.createElement("div");g.className="grow";g.textContent=im.name.replace(/^\d+-/,"");r.appendChild(g);
+  var l=document.createElement("label");l.className="c";var c=document.createElement("input");c.type="checkbox";c.checked=!!im.show;c.onchange=function(){im.show=c.checked};l.appendChild(c);l.appendChild(document.createTextNode("Show on screen"));r.appendChild(l);
+  var b=document.createElement("button");b.className="s";b.textContent="Get times";b.onclick=function(){cur=im;$("ex").style.display="block";$("exh").textContent="Read times from "+g.textContent;rows=[];$("pv").innerHTML="";$("sv").style.display="none";$("ex").scrollIntoView()};r.appendChild(b);
+  var d=document.createElement("button");d.className="d";d.textContent="Delete";d.onclick=function(){if(!confirm("Delete this image?"))return;api("/api/upload?name="+encodeURIComponent(im.name),{method:"DELETE"}).then(function(){S.images.splice(i,1);imgs();persist("Image deleted.")})};r.appendChild(d);box.appendChild(r)})}
+$("up").onclick=function(){var fs=$("file").files;if(!fs.length)return msg("Choose one or more images first.");
+ Array.prototype.reduce.call(fs,function(pr,f){return pr.then(function(){return new Promise(function(ok,no){var r=new FileReader();r.onload=function(){ok(r.result)};r.onerror=no;r.readAsDataURL(f)}).then(function(d){return api("/api/upload",{method:"POST",body:JSON.stringify({name:f.name,data:d})})}).then(function(j){S.images.push({name:j.name,show:false})})})},Promise.resolve())
+ .then(function(){$("file").value="";imgs();persist("Uploaded.")}).catch(function(e){msg("Upload failed: "+e.message)})};
+
+/* reading calendars */
+$("pre").onchange=function(){if(this.value!=="custom")$("keys").value=this.value};
+function keys(){return $("keys").value.split(",").map(function(x){return x.trim()}).filter(Boolean)}
+function to24(h,m,k){h=+h;var b=k.replace(/J$/,"");if(h>=13||h===0)return pad(h)+":"+m;
+ if(b==="fajr"||b==="sunrise")return pad(h)+":"+m;if(b==="zuhr")return pad(h<=6?h+12:h)+":"+m;return pad(h<12?h+12:h)+":"+m}
+function pad(n){return("0"+n).slice(-2)}
+function parse(text){var K=keys(),out=[];text.split(/\n/).forEach(function(line){var ts=[],re=/(\d{1,2})\s*[:.;]\s*(\d{2})/g,m;while((m=re.exec(line)))ts.push([m[1],m[2]]);
+ if(ts.length<Math.max(3,K.length-2))return;var rest=line.replace(re," "),dm=/\b(\d{1,2})\b/.exec(rest);if(!dm||+dm[1]<1||+dm[1]>31)return;
+ var o={day:+dm[1]};K.forEach(function(k,i){o[k]=ts[i]?to24(ts[i][0],ts[i][1],k):""});out.push(o)});
+ var seen={};return out.filter(function(o){if(seen[o.day])return false;seen[o.day]=1;return true}).sort(function(a,b){return a.day-b.day})}
+function preview(){var K=keys(),pv=$("pv");pv.innerHTML="";if(!rows.length){$("st").textContent="No timetable rows found. Try another image, the other reading method, or a different column order.";$("sv").style.display="none";return}
+ var t=document.createElement("table"),h=t.insertRow();["Day"].concat(K).forEach(function(k){var c=document.createElement("th");c.textContent=k;h.appendChild(c)});
+ rows.forEach(function(o){var r=t.insertRow();["day"].concat(K).forEach(function(k){var c=r.insertCell(),i=document.createElement("input");i.value=o[k]==null?"":o[k];i.oninput=function(){o[k]=k==="day"?+i.value:i.value};c.appendChild(i)})});
+ pv.appendChild(t);$("sv").style.display="flex";$("st").textContent=rows.length+" days found. Check the times, then save."}
+$("ocr").onclick=function(){if(!cur)return;if(!window.Tesseract)return msg("OCR could not load. This browser needs internet access to load it.");$("st").textContent="Reading… 0%";
+ Tesseract.recognize("/uploads/"+encodeURIComponent(cur.name),"eng",{logger:function(m){if(m.status==="recognizing text")$("st").textContent="Reading… "+Math.round(m.progress*100)+"%"}})
+ .then(function(r){rows=parse(r.data.text);preview()}).catch(function(e){$("st").textContent="OCR failed: "+e.message})};
+$("ai").onclick=function(){if(!cur)return;if(!AI)return msg("AI reading needs ANTHROPIC_API_KEY set on the server. Use OCR instead.");$("st").textContent="Reading with AI…";
+ api("/api/extract",{method:"POST",body:JSON.stringify({name:cur.name,keys:keys()})}).then(function(r){rows=r.rows.filter(function(o){return o&&o.day});preview()}).catch(function(e){$("st").textContent="AI reading failed: "+e.message})};
+$("addtt").onclick=function(){var mo=$("mon").value;if(!mo)return msg("Choose the month first.");var n=0,K=keys();
+ rows.forEach(function(o){var b={},j={};K.forEach(function(k){var v=o[k];if(!/^\d{1,2}:\d{2}$/.test(v||""))return;v=("0"+v).slice(-5);if(/J$/.test(k))j[k.slice(0,-1)]=v;else b[k]=v});
+  if(b.maghrib&&!j.maghrib)j.maghrib=b.maghrib;if(Object.keys(b).length){S.timetable[mo+"-"+pad(o.day)]={b:b,j:j};n++}});
+ tt();persist(n+" days saved for "+mo+".");$("ex").style.display="none"};
+function tt(){var n=Object.keys(S.timetable||{}).length;$("ttinfo").textContent=n?n+" days in the timetable.":"The timetable is empty. The default times above are used."}
+$("cltt").onclick=function(){if(confirm("Remove every day from the timetable?")){S.timetable={};tt();persist("Timetable cleared.")}};
+
+api("/api/auth").then(function(a){AI=a.ai;start()}).catch(function(){login()});
+})();
+</script>
+</body>
+</html>

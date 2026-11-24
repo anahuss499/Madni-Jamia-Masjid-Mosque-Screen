@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Madni Jamia Masjid</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alegreya+Sans:wght@400;500;700;800&family=Alegreya:wght@700&family=Amiri:wght@400;700&display=swap">
+<style>
+:root{--cream:#f6f0df;--paper:#fbf7ea;--ink:#1f1c14;--mut:#6f6650;--green:#1d4a39;--deep:#143528;--brass:#a67c2e;--sand:#dccfa6;--tint:#ece2c0}
+*{box-sizing:border-box;margin:0}
+html,body{height:100%}
+html{font-size:max(9px,min(1.5vw,2.5vh))}
+@media (orientation:portrait){html{font-size:max(9px,min(3.1vw,1.6vh))}}
+body{background:var(--cream);color:var(--ink);font-family:"Alegreya Sans","Segoe UI",system-ui,sans-serif;font-variant-numeric:lining-nums tabular-nums;overflow:hidden;transition:filter 2s}
+body.dim{filter:brightness(.38)}
+.ar{font-family:Amiri,"Noto Naskh Arabic","Traditional Arabic",serif;direction:rtl}
+#screen{height:100%;height:100dvh;display:grid;grid-template-columns:.78fr 1.5fr;grid-template-rows:1fr auto;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (orientation:portrait){#screen{grid-template-columns:1fr;grid-template-rows:auto 1fr auto}}
+.panel{grid-row:1/3;background-color:var(--green);color:var(--cream);padding:1.4rem 1.2rem;display:flex;flex-direction:column;align-items:center;justify-content:space-between;text-align:center;gap:.8rem;
+background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='72' height='72'%3E%3Cg fill='none' stroke='%23f6f0df' stroke-opacity='.07' stroke-width='1.5'%3E%3Crect x='16' y='16' width='40' height='40'/%3E%3Crect x='16' y='16' width='40' height='40' transform='rotate(45 36 36)'/%3E%3C/g%3E%3C/svg%3E")}
+@media (orientation:portrait){.panel{grid-row:1;flex-direction:row;justify-content:space-around;padding:1rem}}
+.name{font-family:Alegreya,Georgia,serif;font-size:2.3rem;line-height:1.05}
+.panel .ar{font-size:1.7rem;color:#d9b866;line-height:1.3}
+#clk{width:min(100%,13rem);aspect-ratio:1;flex:none}
+@media (orientation:portrait){#clk{width:12rem}}
+#time{font-size:4.6rem;font-weight:800;line-height:1}
+#time small{font-size:1.6rem;font-weight:500;color:#d9b866;margin-left:.3rem}
+.nx{border-top:1px solid rgba(246,240,223,.3);padding-top:.7rem;width:100%}
+.nx span{font-size:1.15rem;color:#d9b866}
+#nname{font-size:2rem;font-weight:700;line-height:1.1}
+#ncount{font-size:3.2rem;font-weight:800;line-height:1.1}
+#ncount.soon{animation:p 1s infinite}@keyframes p{50%{opacity:.4}}
+.main{display:grid;grid-template-rows:auto auto auto auto 1fr;gap:.45rem;padding:.8rem 1.4rem .5rem;min-height:0;min-width:0;position:relative}
+.dates{display:flex;justify-content:space-between;align-items:baseline;font-size:1.4rem;font-weight:700}
+.dates #hd{font-weight:500;color:var(--mut)}
+table{width:100%;border-collapse:collapse}
+th{font-size:1.15rem;color:var(--brass);font-weight:700;padding:0 .6rem .25rem;text-align:center}
+th:first-child,td:first-child{text-align:left}
+td{padding:.1rem .6rem;text-align:center;font-size:1.9rem;font-weight:700}
+td:first-child{font-size:1.8rem;font-weight:500;display:flex;justify-content:space-between;align-items:baseline;gap:.6rem}
+td:first-child .ar{font-size:1.4rem;color:var(--mut)}
+td.j{color:var(--green)}
+td .ap{font-size:1rem;font-weight:500;margin-left:.15rem;opacity:.75}
+tbody tr{border-bottom:1px solid var(--sand)}
+tr.sun td{font-weight:500;color:var(--mut)}
+tr.cur td{background:var(--tint)}
+tr.nxt td{background:var(--green);color:var(--cream)}
+tr.nxt td.j{color:#e6c673}tr.nxt td:first-child .ar{color:#d9b866}
+.jum{display:flex;justify-content:space-between;align-items:baseline;padding:.2rem .6rem;background:var(--tint);font-size:1.7rem;font-weight:800}
+.jum small{font-size:1.1rem;font-weight:500;color:var(--mut);margin-left:.5rem}
+.jum .ar{font-weight:400;color:var(--brass);margin-left:.4rem}
+#chg{display:none;padding:.3rem .6rem;background:var(--brass);color:#fff;font-size:1.3rem;font-weight:700}
+.slide{font-size:1rem;overflow:hidden;text-align:center;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:.35em;padding:.5em 1em;border:1px solid var(--sand);background:var(--paper);transition:opacity .7s;min-height:0}
+.main.full #slide{position:absolute;inset:0;z-index:2;background:var(--cream);border:0;padding:.8rem 1.4rem}
+.slide .k{font-size:1.15em;color:var(--brass);font-weight:700}
+.slide h2{font-family:Alegreya,Georgia,serif;font-size:2.4em;line-height:1.1;color:var(--green)}
+.slide img{flex:1;min-height:0;max-width:100%;max-height:100%;object-fit:contain}
+.items{display:flex;gap:1.2em;width:100%;justify-content:center}
+.it{flex:1;min-width:0;border-top:2px solid var(--brass);padding-top:.3em}
+.it .l{font-size:1.05em;font-weight:700;color:var(--brass)}
+.it .a{font-size:1.9em;line-height:1.5}
+.it .t{font-size:1.1em;font-style:italic;color:var(--mut)}
+.it .e{font-size:1.25em;line-height:1.2}
+.note{font-size:1.25em;color:var(--mut);max-width:46em;line-height:1.25}
+.big{font-size:2.3em;line-height:1.2;font-weight:700;max-width:22em}
+.verse{font-size:3em;line-height:1.6}
+.bar{width:80%;height:1.6em;background:var(--tint);border:1px solid var(--sand)}.bar i{display:block;height:100%;background:var(--green)}
+footer{background:var(--deep);color:var(--cream);overflow:hidden;white-space:nowrap;padding:.4rem 0;font-size:1.5rem;font-weight:500}
+@media (orientation:landscape){footer{grid-column:2}}
+#tick{display:inline-block;padding-left:100%;animation:m 55s linear infinite}
+@keyframes m{to{transform:translateX(-100%)}}
+@media (prefers-reduced-motion:reduce){#tick,#ncount.soon{animation:none}}
+</style>
+</head>
+<body>
+<div id="screen">
+  <div class="panel">
+    <div><div class="name">Madni Jamia Masjid</div><div class="ar">مسجد مدني جامع</div></div>
+    <svg id="clk" viewBox="-100 -100 200 200"></svg>
+    <div style="width:100%">
+      <div id="time"></div>
+      <div class="nx" style="margin-top:.8rem"><span>Next jamat</span><div id="nname">–</div><div id="ncount">–</div></div>
+    </div>
+  </div>
+  <div class="main">
+    <div class="dates"><span id="gd"></span><span id="hd"></span></div>
+    <table><thead><tr><th>Prayer</th><th>Begins</th><th>Jamat</th></tr></thead><tbody id="rows"></tbody></table>
+    <div class="jum"><span>Jumu’ah<span class="ar">الجمعة</span><small>every Friday</small></span><span id="jt"></span></div>
+    <div id="chg"></div>
+    <div class="slide" id="slide"></div>
+  </div>
+  <footer><span id="tick"></span></footer>
+</div>
+<script>
+(function(){
+var DEF={b:{fajr:"06:09",sunrise:"07:50",zuhr:"11:57",asr:"14:09",maghrib:"16:02",isha:"17:17"},j:{fajr:"07:15",zuhr:"13:30",asr:"14:45",maghrib:"16:02",isha:"19:30"},
+jumuah:"13:30",off:0,h24:false,sl:{phone:true,dua:true,dhikr:true,donate:true,verse:true},ann:[],ticker:"As-salamu alaykum – Welcome to Madni Jamia Masjid. Please keep your phone on silent.",
+dim:{on:false,from:"23:00",to:"04:00"},fund:{on:false,title:"",raised:0,target:0},images:[],timetable:{}};
+var P=[["fajr","Fajr","الفجر"],["sunrise","Sunrise","الشروق"],["zuhr","Zuhr","الظهر"],["asr","Asr","العصر"],["maghrib","Maghrib","المغرب"],["isha","Isha","العشاء"]];
+var V=[["إِنَّ مَعَ الْعُسْرِ يُسْرًا","Indeed, with hardship comes ease.","Surah ash-Sharh 94:6"],["أَلَا بِذِكْرِ اللَّهِ تَطْمَئِنُّ الْقُلُوبُ","Truly, in the remembrance of Allah hearts find rest.","Surah ar-Ra‘d 13:28"],["فَاذْكُرُونِي أَذْكُرْكُمْ","Remember Me, and I will remember you.","Surah al-Baqarah 2:152"],["إِنَّ اللَّهَ مَعَ الصَّابِرِينَ","Indeed, Allah is with the patient.","Surah al-Baqarah 2:153"]];
+var S=clone(DEF),$=function(i){return document.getElementById(i)},ver=0,curKey="",si=0;
+function clone(o){return JSON.parse(JSON.stringify(o))}
+function ok(h){return /^\d\d:\d\d$/.test(h||"")}
+function merge(o){var r=clone(DEF);if(!o)return r;
+ ["b","j"].forEach(function(k){if(o[k])for(var x in r[k])if(ok(o[k][x]))r[k][x]=o[k][x]});
+ if(ok(o.jumuah))r.jumuah=o.jumuah;if(typeof o.off==="number")r.off=Math.max(-2,Math.min(2,o.off));r.h24=!!o.h24;
+ if(o.sl)for(var s in r.sl)r.sl[s]=o.sl[s]!==false;
+ if(Array.isArray(o.ann))r.ann=o.ann.filter(function(a){return typeof a==="string"&&a.trim()});
+ if(typeof o.ticker==="string")r.ticker=o.ticker;
+ if(o.dim){r.dim.on=!!o.dim.on;if(ok(o.dim.from))r.dim.from=o.dim.from;if(ok(o.dim.to))r.dim.to=o.dim.to}
+ if(o.fund){r.fund={on:!!o.fund.on,title:String(o.fund.title||""),raised:+o.fund.raised||0,target:+o.fund.target||0}}
+ if(Array.isArray(o.images))r.images=o.images.filter(function(i){return i&&typeof i.name==="string"});
+ if(o.timetable&&typeof o.timetable==="object")r.timetable=o.timetable;
+ ver=o.ver||0;return r}
+function load(o){S=merge(o);curKey="";si=0;tick()}
+function dkey(d){return d.getFullYear()+"-"+("0"+(d.getMonth()+1)).slice(-2)+"-"+("0"+d.getDate()).slice(-2)}
+function dayT(d){var r=S.timetable[dkey(d)]||{};return{b:Object.assign({},S.b,r.b),j:Object.assign({},S.j,r.j)}}
+function at(h,d){var p=h.split(":"),x=new Date(d);x.setHours(+p[0],+p[1],0,0);return x}
+function fmt(h){var p=h.split(":"),n=+p[0];if(S.h24)return[("0"+n).slice(-2)+":"+p[1],""];return[(n%12||12)+":"+p[1],n<12?"am":"pm"]}
+function put(el,h){var f=fmt(h);el.textContent=f[0];if(f[1]){var s=document.createElement("span");s.className="ap";s.textContent=f[1];el.appendChild(s)}}
+function mk(c,cl,tx){var d=document.createElement(c);d.className=cl||"";d.textContent=tx;return d}
+
+(function(){var h='<circle r="97" fill="#f6f0df" stroke="#a67c2e" stroke-width="4"/>';
+ for(var i=0;i<60;i++){var a=i*6*Math.PI/180,big=i%5===0,r1=big?80:86;h+='<line x1="'+(Math.sin(a)*r1).toFixed(1)+'" y1="'+(-Math.cos(a)*r1).toFixed(1)+'" x2="'+(Math.sin(a)*91).toFixed(1)+'" y2="'+(-Math.cos(a)*91).toFixed(1)+'" stroke="#1d4a39" stroke-width="'+(big?2.6:1)+'"/>'}
+ for(i=1;i<=12;i++){a=i*30*Math.PI/180;h+='<text x="'+(Math.sin(a)*65).toFixed(1)+'" y="'+(-Math.cos(a)*65+8).toFixed(1)+'" text-anchor="middle" font-size="22" font-weight="800" fill="#1f1c14" font-family="Alegreya Sans,sans-serif">'+i+'</text>'}
+ h+='<line id="hh" y1="8" y2="-46" stroke="#1f1c14" stroke-width="6" stroke-linecap="round"/><line id="mh" y1="10" y2="-66" stroke="#1d4a39" stroke-width="4" stroke-linecap="round"/><line id="sh" y1="18" y2="-74" stroke="#a67c2e" stroke-width="1.8"/><circle r="5" fill="#a67c2e"/>';$("clk").innerHTML=h})();
+
+function build(T){var tb=$("rows");tb.innerHTML="";
+ P.forEach(function(p){var tr=document.createElement("tr");tr.id="r-"+p[0];
+  var a=document.createElement("td");a.appendChild(mk("span","",p[1]));a.appendChild(mk("span","ar",p[2]));tr.appendChild(a);
+  var b=document.createElement("td");put(b,T.b[p[0]]);tr.appendChild(b);
+  var j=document.createElement("td");j.className="j";if(p[0]==="sunrise")j.textContent="–";else put(j,T.j[p[0]]);tr.appendChild(j);tb.appendChild(tr)});
+ put($("jt"),S.jumuah);$("tick").textContent=S.ticker+"        ✦        "+S.ticker;
+ var tm=new Date();tm.setDate(tm.getDate()+1);var out=[];
+ if(S.timetable[dkey(tm)]){var N=dayT(tm);["fajr","zuhr","asr","maghrib","isha"].forEach(function(k){if(N.j[k]!==T.j[k]){var f=fmt(N.j[k]);out.push(k[0].toUpperCase()+k.slice(1)+" "+f[0]+f[1])}})}
+ var c=$("chg");c.style.display=out.length?"block":"none";c.textContent=out.length?"Jamat changes tomorrow: "+out.join(", "):""}
+
+function tick(){var now=new Date(),fri=now.getDay()===5,T=dayT(now);
+ if(curKey!==dkey(now)){curKey=dkey(now);build(T)}
+ var hr=now.getHours(),mi=now.getMinutes(),se=now.getSeconds(),hm=("0"+hr).slice(-2)+":"+("0"+mi).slice(-2);
+ put($("time"),hm);
+ $("hh").setAttribute("transform","rotate("+((hr%12)*30+mi*.5)+")");$("mh").setAttribute("transform","rotate("+(mi*6+se*.1)+")");$("sh").setAttribute("transform","rotate("+se*6+")");
+ $("gd").textContent=now.toLocaleDateString("en-GB",{weekday:"long",day:"numeric",month:"long",year:"numeric"});
+ try{var hd=new Date(now);hd.setDate(hd.getDate()+S.off);$("hd").textContent=new Intl.DateTimeFormat("en-GB-u-ca-islamic-umalqura",{day:"numeric",month:"long",year:"numeric"}).format(hd)}catch(e){}
+ var jm=function(k){return k==="zuhr"&&fri?S.jumuah:T.j[k]},nxt=null,cur=null;
+ P.forEach(function(p){if(at(T.b[p[0]],now)<=now)cur=p[0]});
+ for(var i=0;i<P.length;i++){var k=P[i][0];if(k==="sunrise")continue;var t=at(jm(k),now);if(t>now){nxt={k:k,t:t,n:k==="zuhr"&&fri?"Jumu’ah":P[i][1],h:jm(k)};break}}
+ if(!nxt){var tm=new Date(now);tm.setDate(tm.getDate()+1);var N=dayT(tm);nxt={k:"fajr",t:at(N.j.fajr,tm),n:"Fajr",h:N.j.fajr}}
+ var d=Math.max(0,Math.round((nxt.t-now)/1000)),h=Math.floor(d/3600),m=Math.floor(d%3600/60),sc=d%60,f=fmt(nxt.h);
+ $("nname").textContent=nxt.n+" "+f[0]+" "+f[1];$("ncount").textContent=(h?h+":":"")+("0"+m).slice(-2)+":"+("0"+sc).slice(-2);$("ncount").className=d<600?"soon":"";
+ P.forEach(function(p){var r=$("r-"+p[0]);if(r)r.className=(p[0]==="sunrise"?"sun ":"")+(p[0]===cur?"cur ":"")+(p[0]===nxt.k?"nxt":"")});
+ var dm=false;if(S.dim.on){var n=hr*60+mi,a=S.dim.from.split(":"),b=S.dim.to.split(":"),x=+a[0]*60+ +a[1],y=+b[0]*60+ +b[1];dm=x<=y?(n>=x&&n<y):(n>=x||n<y)}
+ document.body.classList.toggle("dim",dm)}
+
+function slides(){var L=[],doy=Math.floor((new Date()-new Date(new Date().getFullYear(),0,0))/864e5);
+ S.ann.forEach(function(a){L.push({k:"Announcement",big:a})});
+ S.images.forEach(function(i){if(i.show)L.push({img:"/uploads/"+encodeURIComponent(i.name)})});
+ if(S.fund.on&&S.fund.target>0)L.push({k:"Masjid fund",t:S.fund.title||"Our appeal",bar:Math.min(100,S.fund.raised/S.fund.target*100),n:"£"+S.fund.raised.toLocaleString("en-GB")+" raised of £"+S.fund.target.toLocaleString("en-GB")});
+ if(S.sl.verse){var v=V[doy%V.length];L.push({k:"Verse of the day",verse:v[0],n:v[1]+" – "+v[2]})}
+ if(S.sl.phone)L.push({k:"Before you enter",t:"Please switch off your mobile phone",n:"Out of respect for the house of Allah ﷻ and the worshippers, keep your phone silent."});
+ if(S.sl.dua)L.push({k:"Sunnahs of the masjid",t:"Du‘a for entering and leaving",it:[
+  {l:"Entering",a:"اللَّهُمَّ افْتَحْ لِي أَبْوَابَ رَحْمَتِكَ",t:"Allāhumma-ftaḥ lī abwāba raḥmatik",e:"O Allah, open for me the doors of Your mercy."},
+  {l:"Leaving",a:"اللَّهُمَّ إِنِّي أَسْأَلُكَ مِنْ فَضْلِكَ",t:"Allāhumma innī as’aluka min faḍlik",e:"O Allah, I ask You of Your bounty."}],n:"Enter with the right foot, leave with the left, and send blessings upon the Prophet ﷺ."});
+ if(S.sl.dhikr)L.push({k:"After every fard prayer",t:"Dhikr after salah",it:[
+  {l:"Istighfār ×3",a:"أَسْتَغْفِرُ اللَّهَ",t:"Astaghfirullāh",e:"I seek forgiveness from Allah."},
+  {l:"Salām",a:"اللَّهُمَّ أَنْتَ السَّلَامُ وَمِنْكَ السَّلَامُ",t:"Allāhumma anta-s-salām wa minka-s-salām",e:"O Allah, You are Peace and from You comes peace."},
+  {l:"Tasbīḥ 33 · 33 · 34",a:"سُبْحَانَ اللَّهِ · الْحَمْدُ لِلَّهِ · اللَّهُ أَكْبَرُ",t:"SubḥānAllāh · Alḥamdulillāh · Allāhu Akbar",e:"Glory be to Allah, praise be to Allah, Allah is the Greatest."}],n:"Also recite Ayat al-Kursi (2:255) after every fard prayer."});
+ if(S.sl.donate)L.push({k:"Support your masjid",t:"Give generously, build lastingly",n:"Contactless and bank card donations are accepted in the masjid. Donate online at icea.org.uk. Registered charity no. 1058664."});
+ return L}
+function fit(el){var fs=parseFloat(getComputedStyle(document.documentElement).fontSize);el.style.fontSize=fs+"px";
+ for(var i=0;i<40&&(el.scrollHeight>el.clientHeight+1||el.scrollWidth>el.clientWidth+1);i++){fs*=.95;el.style.fontSize=fs+"px"}}
+function show(){var L=slides(),el=$("slide"),mn=document.querySelector(".main");
+ if(!L.length){el.textContent="";setTimeout(show,15000);return}
+ el.style.opacity=0;setTimeout(function(){var s=L[si%L.length];si++;el.innerHTML="";mn.classList.toggle("full",!!s.img);
+  if(s.img){var im=document.createElement("img");im.src=s.img;im.alt="";el.appendChild(im)}
+  if(s.k)el.appendChild(mk("div","k",s.k));
+  if(s.big)el.appendChild(mk("div","big",s.big));
+  if(s.verse)el.appendChild(mk("div","verse ar",s.verse));
+  if(s.t)el.appendChild(mk("h2","",s.t));
+  if(s.bar!=null){var b=document.createElement("div");b.className="bar";var i=document.createElement("i");i.style.width=s.bar+"%";b.appendChild(i);el.appendChild(b)}
+  if(s.it){var w=document.createElement("div");w.className="items";s.it.forEach(function(x){var d=document.createElement("div");d.className="it";
+   d.appendChild(mk("div","l",x.l));d.appendChild(mk("div","a ar",x.a));d.appendChild(mk("div","t",x.t));d.appendChild(mk("div","e",x.e));w.appendChild(d)});el.appendChild(w)}
+  if(s.n)el.appendChild(mk("div","note",s.n));
+  el.style.opacity=1;fit(el);if(s.img)im.onload=function(){fit(el)};
+  setTimeout(show,s.img?30000:15000)},700)}
+
+function sync(){fetch("/api/settings",{cache:"no-store"}).then(function(r){return r.json()}).then(function(o){
+  if((o.ver||0)!==ver){load(o);try{localStorage.setItem("mjs",JSON.stringify(o))}catch(e){}}}).catch(function(){})}
+try{var c=localStorage.getItem("mjs");if(c)S=merge(JSON.parse(c))}catch(e){}
+tick();setInterval(tick,1000);show();sync();setInterval(sync,30000);
+})();
+</script>
+</body>
+</html>
