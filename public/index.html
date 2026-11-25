@@ -1,194 +1,2014 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Madni Jamia Masjid</title>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alegreya+Sans:wght@400;500;700;800&family=Alegreya:wght@700&family=Amiri:wght@400;700&display=swap">
-<style>
-:root{--cream:#f6f0df;--paper:#fbf7ea;--ink:#1f1c14;--mut:#6f6650;--green:#1d4a39;--deep:#143528;--brass:#a67c2e;--sand:#dccfa6;--tint:#ece2c0}
-*{box-sizing:border-box;margin:0}
-html,body{height:100%}
-html{font-size:max(9px,min(1.5vw,2.5vh))}
-@media (orientation:portrait){html{font-size:max(9px,min(3.1vw,1.6vh))}}
-body{background:var(--cream);color:var(--ink);font-family:"Alegreya Sans","Segoe UI",system-ui,sans-serif;font-variant-numeric:lining-nums tabular-nums;overflow:hidden;transition:filter 2s}
-body.dim{filter:brightness(.38)}
-.ar{font-family:Amiri,"Noto Naskh Arabic","Traditional Arabic",serif;direction:rtl}
-#screen{height:100%;height:100dvh;display:grid;grid-template-columns:.78fr 1.5fr;grid-template-rows:1fr auto;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
-@media (orientation:portrait){#screen{grid-template-columns:1fr;grid-template-rows:auto 1fr auto}}
-.panel{grid-row:1/3;background-color:var(--green);color:var(--cream);padding:1.4rem 1.2rem;display:flex;flex-direction:column;align-items:center;justify-content:space-between;text-align:center;gap:.8rem;
-background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='72' height='72'%3E%3Cg fill='none' stroke='%23f6f0df' stroke-opacity='.07' stroke-width='1.5'%3E%3Crect x='16' y='16' width='40' height='40'/%3E%3Crect x='16' y='16' width='40' height='40' transform='rotate(45 36 36)'/%3E%3C/g%3E%3C/svg%3E")}
-@media (orientation:portrait){.panel{grid-row:1;flex-direction:row;justify-content:space-around;padding:1rem}}
-.name{font-family:Alegreya,Georgia,serif;font-size:2.3rem;line-height:1.05}
-.panel .ar{font-size:1.7rem;color:#d9b866;line-height:1.3}
-#clk{width:min(100%,13rem);aspect-ratio:1;flex:none}
-@media (orientation:portrait){#clk{width:12rem}}
-#time{font-size:4.6rem;font-weight:800;line-height:1}
-#time small{font-size:1.6rem;font-weight:500;color:#d9b866;margin-left:.3rem}
-.nx{border-top:1px solid rgba(246,240,223,.3);padding-top:.7rem;width:100%}
-.nx span{font-size:1.15rem;color:#d9b866}
-#nname{font-size:2rem;font-weight:700;line-height:1.1}
-#ncount{font-size:3.2rem;font-weight:800;line-height:1.1}
-#ncount.soon{animation:p 1s infinite}@keyframes p{50%{opacity:.4}}
-.main{display:grid;grid-template-rows:auto auto auto auto 1fr;gap:.45rem;padding:.8rem 1.4rem .5rem;min-height:0;min-width:0;position:relative}
-.dates{display:flex;justify-content:space-between;align-items:baseline;font-size:1.4rem;font-weight:700}
-.dates #hd{font-weight:500;color:var(--mut)}
-table{width:100%;border-collapse:collapse}
-th{font-size:1.15rem;color:var(--brass);font-weight:700;padding:0 .6rem .25rem;text-align:center}
-th:first-child,td:first-child{text-align:left}
-td{padding:.1rem .6rem;text-align:center;font-size:1.9rem;font-weight:700}
-td:first-child{font-size:1.8rem;font-weight:500;display:flex;justify-content:space-between;align-items:baseline;gap:.6rem}
-td:first-child .ar{font-size:1.4rem;color:var(--mut)}
-td.j{color:var(--green)}
-td .ap{font-size:1rem;font-weight:500;margin-left:.15rem;opacity:.75}
-tbody tr{border-bottom:1px solid var(--sand)}
-tr.sun td{font-weight:500;color:var(--mut)}
-tr.cur td{background:var(--tint)}
-tr.nxt td{background:var(--green);color:var(--cream)}
-tr.nxt td.j{color:#e6c673}tr.nxt td:first-child .ar{color:#d9b866}
-.jum{display:flex;justify-content:space-between;align-items:baseline;padding:.2rem .6rem;background:var(--tint);font-size:1.7rem;font-weight:800}
-.jum small{font-size:1.1rem;font-weight:500;color:var(--mut);margin-left:.5rem}
-.jum .ar{font-weight:400;color:var(--brass);margin-left:.4rem}
-#chg{display:none;padding:.3rem .6rem;background:var(--brass);color:#fff;font-size:1.3rem;font-weight:700}
-.slide{font-size:1rem;overflow:hidden;text-align:center;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:.35em;padding:.5em 1em;border:1px solid var(--sand);background:var(--paper);transition:opacity .7s;min-height:0}
-.main.full #slide{position:absolute;inset:0;z-index:2;background:var(--cream);border:0;padding:.8rem 1.4rem}
-.slide .k{font-size:1.15em;color:var(--brass);font-weight:700}
-.slide h2{font-family:Alegreya,Georgia,serif;font-size:2.4em;line-height:1.1;color:var(--green)}
-.slide img{flex:1;min-height:0;max-width:100%;max-height:100%;object-fit:contain}
-.items{display:flex;gap:1.2em;width:100%;justify-content:center}
-.it{flex:1;min-width:0;border-top:2px solid var(--brass);padding-top:.3em}
-.it .l{font-size:1.05em;font-weight:700;color:var(--brass)}
-.it .a{font-size:1.9em;line-height:1.5}
-.it .t{font-size:1.1em;font-style:italic;color:var(--mut)}
-.it .e{font-size:1.25em;line-height:1.2}
-.note{font-size:1.25em;color:var(--mut);max-width:46em;line-height:1.25}
-.big{font-size:2.3em;line-height:1.2;font-weight:700;max-width:22em}
-.verse{font-size:3em;line-height:1.6}
-.bar{width:80%;height:1.6em;background:var(--tint);border:1px solid var(--sand)}.bar i{display:block;height:100%;background:var(--green)}
-footer{background:var(--deep);color:var(--cream);overflow:hidden;white-space:nowrap;padding:.4rem 0;font-size:1.5rem;font-weight:500}
-@media (orientation:landscape){footer{grid-column:2}}
-#tick{display:inline-block;padding-left:100%;animation:m 55s linear infinite}
-@keyframes m{to{transform:translateX(-100%)}}
-@media (prefers-reduced-motion:reduce){#tick,#ncount.soon{animation:none}}
-</style>
-</head>
-<body>
-<div id="screen">
-  <div class="panel">
-    <div><div class="name">Madni Jamia Masjid</div><div class="ar">مسجد مدني جامع</div></div>
-    <svg id="clk" viewBox="-100 -100 200 200"></svg>
-    <div style="width:100%">
-      <div id="time"></div>
-      <div class="nx" style="margin-top:.8rem"><span>Next jamat</span><div id="nname">–</div><div id="ncount">–</div></div>
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <title>Madni Jamia Masjid</title>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Alegreya+Sans:wght@400;500;700;800&family=Alegreya:wght@700&family=Amiri:wght@400;700&family=Noto+Naskh+Arabic:wght@500;700&display=swap"
+    />
+    <style>
+      :root {
+        --bg: #f6f0df;
+        --paper: #fbf7ea;
+        --ink: #1f1c14;
+        --mut: #6f6650;
+        --green: #1d4a39;
+        --brass: #a67c2e;
+        --sand: #dccfa6;
+        --tint: #ece2c0;
+        --pbg: #1d4a39;
+        --pfg: #f6f0df;
+        --pacc: #d9b866;
+        --pline: rgba(246, 240, 223, 0.3);
+        --nbg: #1d4a39;
+        --nfg: #f6f0df;
+        --nacc: #e6c673;
+        --jc: #1d4a39;
+        --hd: #1d4a39;
+        --fbg: #143528;
+        --ffg: #f6f0df;
+        --chgfg: #fff;
+        --cface: #f6f0df;
+        --crim: #a67c2e;
+        --ctick: #1d4a39;
+        --cnum: #1f1c14;
+        --chh: #1f1c14;
+        --cmh: #1d4a39;
+        --csh: #a67c2e;
+        --patsz: auto;
+        --pat: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='72' height='72'%3E%3Cg fill='none' stroke='%23f6f0df' stroke-opacity='.07' stroke-width='1.5'%3E%3Crect x='16' y='16' width='40' height='40'/%3E%3Crect x='16' y='16' width='40' height='40' transform='rotate(45 36 36)'/%3E%3C/g%3E%3C/svg%3E");
+      }
+      * {
+        box-sizing: border-box;
+        margin: 0;
+      }
+      html,
+      body {
+        height: 100%;
+      }
+      html {
+        font-size: max(9px, min(1.5vw, 2.5vh));
+      }
+      @media (orientation: portrait) {
+        html {
+          font-size: max(9px, min(3.1vw, 1.6vh));
+        }
+      }
+      body {
+        background: var(--bg);
+        color: var(--ink);
+        font-family: "Alegreya Sans", "Segoe UI", system-ui, sans-serif;
+        font-variant-numeric: lining-nums tabular-nums;
+        overflow: hidden;
+        transition: filter 2s;
+      }
+      body.dim {
+        filter: brightness(0.38);
+      }
+      .ar {
+        font-family: "Noto Naskh Arabic", Amiri, "Traditional Arabic", serif;
+        direction: rtl;
+        font-weight: 500;
+        letter-spacing: 0;
+        unicode-bidi: isolate;
+      }
+      #screen {
+        height: 100%;
+        height: 100dvh;
+        display: grid;
+        grid-template-columns: 0.78fr 1.5fr;
+        grid-template-rows: 1fr auto;
+        padding-top: env(safe-area-inset-top, 0px);
+        padding-bottom: env(safe-area-inset-bottom, 0px);
+      }
+      @media (orientation: portrait) {
+        #screen {
+          grid-template-columns: 1fr;
+          grid-template-rows: auto 1fr auto;
+        }
+      }
+      .panel {
+        position: relative;
+        overflow: hidden;
+        grid-row: 1/3;
+        background-color: var(--pbg);
+        background-image: var(--pat);
+        background-size: var(--patsz);
+        color: var(--pfg);
+        padding: 1.4rem 1.2rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+        text-align: center;
+        gap: 0.8rem;
+      }
+      .panel > * {
+        position: relative;
+        z-index: 1;
+      }
+      @media (orientation: portrait) {
+        .panel {
+          grid-row: 1;
+          flex-direction: row;
+          justify-content: space-around;
+          padding: 1rem;
+        }
+      }
+      .name {
+        font-family: Alegreya, Georgia, serif;
+        font-size: 2.3rem;
+        line-height: 1.05;
+      }
+      .panel .ar {
+        font-size: 1.7rem;
+        color: var(--pacc);
+        line-height: 1.3;
+      }
+      .greet {
+        display: none;
+        margin-top: 0.5rem;
+      }
+      .greet .gt {
+        display: inline-block;
+        font-size: 1.3rem;
+        font-weight: 800;
+        color: var(--pacc);
+        border: 1px solid var(--pacc);
+        padding: 0.05rem 0.8rem;
+      }
+      #clk {
+        width: min(100%, 13rem);
+        aspect-ratio: 1;
+        flex: none;
+      }
+      @media (orientation: portrait) {
+        #clk {
+          width: 12rem;
+        }
+      }
+      .cf {
+        fill: var(--cface);
+        stroke: var(--crim);
+        stroke-width: 4;
+      }
+      .ct {
+        stroke: var(--ctick);
+      }
+      .cn {
+        fill: var(--cnum);
+        font-weight: 800;
+        font-family: "Alegreya Sans", sans-serif;
+      }
+      .chh {
+        stroke: var(--chh);
+      }
+      .cmh {
+        stroke: var(--cmh);
+      }
+      .csh {
+        stroke: var(--csh);
+      }
+      .cd {
+        fill: var(--csh);
+      }
+      #time {
+        font-size: 4.6rem;
+        font-weight: 800;
+        line-height: 1;
+      }
+      #time small {
+        font-size: 1.6rem;
+        font-weight: 500;
+        color: var(--pacc);
+        margin-left: 0.3rem;
+      }
+      .nx {
+        border-top: 1px solid var(--pline);
+        padding-top: 0.7rem;
+        width: 100%;
+      }
+      .nx span {
+        font-size: 1.15rem;
+        color: var(--pacc);
+      }
+      #nname {
+        font-size: 2rem;
+        font-weight: 700;
+        line-height: 1.1;
+      }
+      #ncount {
+        font-size: 3.2rem;
+        font-weight: 800;
+        line-height: 1.1;
+      }
+      #ncount.soon {
+        animation: p 1s infinite;
+      }
+      @keyframes p {
+        50% {
+          opacity: 0.4;
+        }
+      }
+      .main {
+        display: grid;
+        grid-template-rows: auto auto auto auto minmax(0, 1fr);
+        gap: 0.45rem;
+        padding: 0.8rem 1.4rem 0.5rem;
+        min-height: 0;
+        min-width: 0;
+        position: relative;
+      }
+      .dates {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        font-size: 1.4rem;
+        font-weight: 700;
+      }
+      .dates #hd {
+        font-weight: 500;
+        color: var(--mut);
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+      th {
+        font-size: 1.15rem;
+        color: var(--brass);
+        font-weight: 700;
+        padding: 0 0.6rem 0.25rem;
+        text-align: center;
+      }
+      th:first-child,
+      td:first-child {
+        text-align: left;
+      }
+      td {
+        padding: 0.08rem 0.6rem;
+        line-height: 1.12;
+        text-align: center;
+        font-size: 1.85rem;
+        font-weight: 700;
+      }
+      td:first-child {
+        font-size: 1.8rem;
+        font-weight: 500;
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        gap: 0.6rem;
+      }
+      td:first-child .ar {
+        font-size: 1.4rem;
+        color: var(--mut);
+      }
+      td .tg {
+        font-size: 1rem;
+        color: var(--brass);
+        font-weight: 500;
+        margin-left: 0.6rem;
+      }
+      td.j {
+        color: var(--jc);
+      }
+      td .ap {
+        font-size: 1rem;
+        font-weight: 500;
+        margin-left: 0.15rem;
+        opacity: 0.75;
+      }
+      tbody tr {
+        border-bottom: 1px solid var(--sand);
+      }
+      tr.sun td {
+        font-weight: 500;
+        color: var(--mut);
+      }
+      tr.cur td {
+        background: var(--tint);
+      }
+      tr.nxt td {
+        background: var(--nbg);
+        color: var(--nfg);
+      }
+      tr.nxt td.j {
+        color: var(--nacc);
+      }
+      tr.nxt td:first-child .ar,
+      tr.nxt td .tg {
+        color: var(--nacc);
+      }
+      .jum {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        padding: 0.2rem 0.6rem;
+        background: var(--tint);
+        font-size: 1.7rem;
+        font-weight: 800;
+      }
+      .jum small {
+        font-size: 1.1rem;
+        font-weight: 500;
+        color: var(--mut);
+        margin-left: 0.5rem;
+      }
+      .jum .ar {
+        font-weight: 400;
+        color: var(--brass);
+        margin-left: 0.4rem;
+      }
+      #chg {
+        display: none;
+        padding: 0.3rem 0.6rem;
+        background: var(--brass);
+        color: var(--chgfg);
+        font-size: 1.3rem;
+        font-weight: 700;
+      }
+      .slide {
+        grid-row: 5;
+        font-size: 1rem;
+        overflow: hidden;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 0.35em;
+        padding: 0.5em 1em;
+        border: 1px solid var(--sand);
+        background: var(--paper);
+        transition: opacity 0.7s;
+        min-height: 0;
+      }
+      .main.full #slide {
+        position: absolute;
+        inset: 0;
+        z-index: 2;
+        background: var(--bg);
+        border: 0;
+        padding: 0.8rem 1.4rem;
+      }
+      .slide .k {
+        font-size: 1.15em;
+        color: var(--brass);
+        font-weight: 700;
+      }
+      .slide h2 {
+        font-family: Alegreya, Georgia, serif;
+        font-size: 2.4em;
+        line-height: 1.1;
+        color: var(--hd);
+      }
+      .slide img {
+        flex: 1;
+        min-height: 0;
+        max-width: 100%;
+        max-height: 100%;
+        object-fit: contain;
+      }
+      .items {
+        display: flex;
+        gap: 1.2em;
+        width: 100%;
+        justify-content: center;
+      }
+      .it {
+        flex: 1;
+        min-width: 0;
+        border-top: 2px solid var(--brass);
+        padding-top: 0.3em;
+      }
+      .it .l {
+        font-size: 1.05em;
+        font-weight: 700;
+        color: var(--brass);
+      }
+      .it .a {
+        font-size: 1.9em;
+        line-height: 1.5;
+      }
+      .it .t {
+        font-size: 1.1em;
+        font-style: italic;
+        color: var(--mut);
+      }
+      .it .e {
+        font-size: 1.25em;
+        line-height: 1.2;
+      }
+      .note {
+        font-size: 1.25em;
+        color: var(--mut);
+        max-width: 46em;
+        line-height: 1.25;
+      }
+      .big {
+        font-size: 2.3em;
+        line-height: 1.2;
+        font-weight: 700;
+        max-width: 22em;
+      }
+      .verse {
+        font-size: 3em;
+        line-height: 1.6;
+      }
+      .bar {
+        width: 80%;
+        height: 1.6em;
+        background: var(--tint);
+        border: 1px solid var(--sand);
+      }
+      .bar i {
+        display: block;
+        height: 100%;
+        background: var(--jc);
+      }
+      footer {
+        background: var(--fbg);
+        color: var(--ffg);
+        overflow: hidden;
+        white-space: nowrap;
+        padding: 0.4rem 0;
+        font-size: 1.5rem;
+        font-weight: 500;
+      }
+      @media (orientation: landscape) {
+        footer {
+          grid-column: 2;
+        }
+      }
+      #tick {
+        display: inline-block;
+        padding-left: 100%;
+        animation: m 55s linear infinite;
+      }
+      @keyframes m {
+        to {
+          transform: translateX(-100%);
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        #tick,
+        #ncount.soon,
+        body,
+        body::before,
+        body::after {
+          animation: none !important;
+        }
+      }
+
+      /* ===== readable Arabic ===== */
+      .panel .ar {
+        font-size: 2rem;
+        line-height: 1.7;
+      }
+      td:first-child .ar {
+        font-size: 1.65rem;
+        line-height: 1.4;
+        color: var(--ink);
+        opacity: 0.9;
+      }
+      tr.nxt td:first-child .ar {
+        opacity: 1;
+      }
+      .jum .ar {
+        font-size: 1.5rem;
+        line-height: 1.5;
+      }
+      .it .a {
+        font-size: 2.1em;
+        line-height: 1.9;
+      }
+      .verse {
+        line-height: 1.9;
+        font-weight: 700;
+      }
+      .off {
+        display: none !important;
+      }
+      /* ===== layouts ===== */
+      html[data-layout="focus"] #clk {
+        display: none;
+      }
+      html[data-layout="focus"] #time {
+        font-size: 5.6rem;
+      }
+      html[data-layout="focus"] #nname {
+        font-size: 2.6rem;
+      }
+      html[data-layout="focus"] #ncount {
+        font-size: 5rem;
+      }
+      @media (orientation: landscape) {
+        html[data-layout="right"] #screen {
+          grid-template-columns: 1.5fr 0.78fr;
+        }
+        html[data-layout="right"] .panel {
+          grid-column: 2;
+          grid-row: 1/3;
+        }
+        html[data-layout="right"] .main {
+          grid-column: 1;
+          grid-row: 1;
+        }
+        html[data-layout="right"] footer {
+          grid-column: 1;
+          grid-row: 2;
+        }
+        html[data-layout="top"] #screen {
+          grid-template-columns: 1fr;
+          grid-template-rows: auto 1fr auto;
+        }
+        html[data-layout="top"] .panel {
+          grid-row: 1;
+          flex-direction: row;
+          justify-content: space-around;
+          padding: 0.5rem 1rem;
+        }
+        html[data-layout="top"] #clk {
+          width: 7rem;
+        }
+        html[data-layout="top"] .name {
+          font-size: 1.9rem;
+        }
+        html[data-layout="top"] #time {
+          font-size: 3.6rem;
+        }
+        html[data-layout="top"] #ncount {
+          font-size: 2.6rem;
+        }
+        html[data-layout="top"] footer {
+          grid-column: 1;
+        }
+        html[data-layout="top"] .main {
+          grid-template-columns: 1.15fr 1fr;
+          grid-template-rows: auto auto auto minmax(0, 1fr);
+          column-gap: 1.2rem;
+        }
+        html[data-layout="top"] .dates {
+          grid-column: 1/3;
+          grid-row: 1;
+        }
+        html[data-layout="top"] table {
+          grid-column: 1;
+          grid-row: 2/5;
+          align-self: start;
+        }
+        html[data-layout="top"] .jum {
+          grid-column: 2;
+          grid-row: 2;
+        }
+        html[data-layout="top"] #chg {
+          grid-column: 2;
+          grid-row: 3;
+        }
+        html[data-layout="top"] .slide {
+          grid-column: 2;
+          grid-row: 4;
+        }
+      }
+      @media (orientation: portrait) and (max-width: 700px) {
+        .panel {
+          flex-wrap: wrap;
+          justify-content: center;
+          gap: 0.5rem 1rem;
+          padding: 0.8rem;
+        }
+        .panel > div:first-child {
+          flex: 1 1 100%;
+        }
+        .panel > div:last-child {
+          width: auto !important;
+          flex: 1 1 9rem;
+        }
+        #clk {
+          width: 9rem;
+        }
+        #time {
+          font-size: 3.4rem;
+        }
+        #ncount {
+          font-size: 2.4rem;
+        }
+        #nname {
+          font-size: 1.6rem;
+        }
+        .name {
+          font-size: 2rem;
+        }
+      }
+
+      /* ===== themes ===== */
+      /* Glass */
+      html[data-theme="glass"] {
+        --bg: linear-gradient(135deg, #0b1f3a, #1a1646 50%, #34175a);
+        --paper: rgba(255, 255, 255, 0.08);
+        --ink: #f4f7fb;
+        --mut: #b7c3da;
+        --green: #7dd3fc;
+        --brass: #fcd34d;
+        --sand: rgba(255, 255, 255, 0.16);
+        --tint: rgba(255, 255, 255, 0.1);
+        --pbg: rgba(255, 255, 255, 0.09);
+        --pfg: #fff;
+        --pacc: #fde68a;
+        --pline: rgba(255, 255, 255, 0.3);
+        --nbg: rgba(125, 211, 252, 0.3);
+        --nfg: #fff;
+        --nacc: #fde68a;
+        --jc: #a7f3d0;
+        --hd: #fff;
+        --fbg: rgba(255, 255, 255, 0.1);
+        --ffg: #fff;
+        --chgfg: #1a1646;
+        --cface: rgba(255, 255, 255, 0.14);
+        --crim: rgba(255, 255, 255, 0.6);
+        --ctick: #fff;
+        --cnum: #fff;
+        --chh: #fff;
+        --cmh: #7dd3fc;
+        --csh: #fcd34d;
+        --pat: none;
+      }
+      html[data-theme="glass"] body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        z-index: -1;
+        background:
+          radial-gradient(
+            40vmax 40vmax at 12% 18%,
+            rgba(56, 189, 248, 0.5),
+            transparent 62%
+          ),
+          radial-gradient(
+            36vmax 36vmax at 88% 80%,
+            rgba(232, 121, 249, 0.45),
+            transparent 62%
+          ),
+          radial-gradient(
+            30vmax 30vmax at 72% 8%,
+            rgba(52, 211, 153, 0.38),
+            transparent 62%
+          );
+      }
+      html[data-theme="glass"] #screen {
+        gap: 0.9rem;
+        padding: 0.9rem;
+      }
+      html[data-theme="glass"] .main {
+        padding: 0;
+        gap: 0.7rem;
+      }
+      html[data-theme="glass"] .panel,
+      html[data-theme="glass"] .jum,
+      html[data-theme="glass"] .slide,
+      html[data-theme="glass"] table,
+      html[data-theme="glass"] footer {
+        backdrop-filter: blur(22px) saturate(150%);
+        -webkit-backdrop-filter: blur(22px) saturate(150%);
+        border: 1px solid rgba(255, 255, 255, 0.28);
+        border-radius: 1.4rem;
+        box-shadow:
+          0 0.8rem 2rem rgba(0, 0, 0, 0.25),
+          inset 0 1px 0 rgba(255, 255, 255, 0.35);
+      }
+      html[data-theme="glass"] table {
+        border-collapse: separate;
+        border-spacing: 0;
+        overflow: hidden;
+      }
+      html[data-theme="glass"] th {
+        padding-top: 0.5rem;
+      }
+      html[data-theme="glass"] tbody tr {
+        border: 0;
+      }
+      html[data-theme="glass"] td {
+        border-bottom: 1px solid var(--sand);
+      }
+      html[data-theme="glass"] .main.full #slide {
+        background: rgba(20, 18, 60, 0.8);
+      }
+      html[data-theme="glass"] .dates {
+        padding: 0 0.5rem;
+      }
+      /* Liquid */
+      html[data-theme="liquid"] {
+        --bg: linear-gradient(
+          120deg,
+          #06b6d4,
+          #3b82f6 35%,
+          #8b5cf6 70%,
+          #06b6d4
+        );
+        --paper: rgba(255, 255, 255, 0.85);
+        --ink: #10224a;
+        --mut: #4a5a85;
+        --green: #2563eb;
+        --brass: #7c3aed;
+        --sand: rgba(16, 34, 74, 0.1);
+        --tint: rgba(255, 255, 255, 0.6);
+        --pbg: rgba(16, 34, 74, 0.3);
+        --pfg: #fff;
+        --pacc: #e0f2fe;
+        --pline: rgba(255, 255, 255, 0.4);
+        --nbg: linear-gradient(90deg, #2563eb, #7c3aed);
+        --nfg: #fff;
+        --nacc: #fde68a;
+        --jc: #2563eb;
+        --hd: #2563eb;
+        --fbg: rgba(16, 34, 74, 0.55);
+        --ffg: #fff;
+        --cface: rgba(255, 255, 255, 0.92);
+        --crim: #fff;
+        --ctick: #2563eb;
+        --cnum: #10224a;
+        --chh: #10224a;
+        --cmh: #2563eb;
+        --csh: #ec4899;
+        --pat: none;
+      }
+      html[data-theme="liquid"] body {
+        background-size: 300% 300%;
+        animation: flow 26s ease-in-out infinite;
+      }
+      @keyframes flow {
+        50% {
+          background-position: 100% 50%;
+        }
+      }
+      html[data-theme="liquid"] body::before,
+      html[data-theme="liquid"] body::after {
+        content: "";
+        position: fixed;
+        z-index: -1;
+        width: 46vmax;
+        height: 46vmax;
+        background: rgba(255, 255, 255, 0.22);
+        filter: blur(28px);
+        animation: morph 18s ease-in-out infinite;
+      }
+      html[data-theme="liquid"] body::before {
+        left: -12vmax;
+        top: -12vmax;
+      }
+      html[data-theme="liquid"] body::after {
+        right: -14vmax;
+        bottom: -14vmax;
+        background: rgba(244, 114, 182, 0.3);
+        animation-delay: -9s;
+      }
+      @keyframes morph {
+        0%,
+        100% {
+          border-radius: 58% 42% 63% 37%/45% 55% 45% 55%;
+          transform: rotate(0);
+        }
+        50% {
+          border-radius: 38% 62% 42% 58%/60% 40% 60% 40%;
+          transform: rotate(25deg) scale(1.08);
+        }
+      }
+      html[data-theme="liquid"] #screen {
+        gap: 1rem;
+        padding: 1rem;
+      }
+      html[data-theme="liquid"] .main {
+        padding: 0;
+        gap: 0.6rem;
+      }
+      html[data-theme="liquid"] .panel {
+        border-radius: 2.4rem;
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        border: 1px solid rgba(255, 255, 255, 0.5);
+        box-shadow: 0 1rem 2.4rem rgba(16, 34, 74, 0.25);
+      }
+      html[data-theme="liquid"] .dates {
+        color: #fff;
+        padding: 0 0.6rem;
+      }
+      html[data-theme="liquid"] .dates #hd {
+        color: #e0f2fe;
+      }
+      html[data-theme="liquid"] table {
+        border-collapse: separate;
+        border-spacing: 0 0.25rem;
+      }
+      html[data-theme="liquid"] th {
+        color: #fff;
+      }
+      html[data-theme="liquid"] tbody tr {
+        border: 0;
+      }
+      html[data-theme="liquid"] td {
+        background: var(--paper);
+      }
+      html[data-theme="liquid"] tr.sun td,
+      html[data-theme="liquid"] tr.cur td {
+        background: rgba(255, 255, 255, 0.6);
+      }
+      html[data-theme="liquid"] tr.nxt td {
+        background: var(--nbg);
+      }
+      html[data-theme="liquid"] td:first-child {
+        border-radius: 1.2rem 0 0 1.2rem;
+      }
+      html[data-theme="liquid"] td:last-child {
+        border-radius: 0 1.2rem 1.2rem 0;
+      }
+      html[data-theme="liquid"] .jum {
+        border-radius: 1.2rem;
+        background: var(--paper);
+      }
+      html[data-theme="liquid"] .slide {
+        border-radius: 1.8rem;
+        border: 0;
+        box-shadow: 0 0.8rem 2rem rgba(16, 34, 74, 0.2);
+      }
+      html[data-theme="liquid"] footer {
+        border-radius: 1.2rem;
+      }
+      html[data-theme="liquid"] #chg {
+        border-radius: 1.2rem;
+      }
+      html[data-theme="liquid"] .main.full #slide {
+        background: rgba(255, 255, 255, 0.95);
+        border-radius: 1.8rem;
+      }
+      /* Simple */
+      html[data-theme="simple"] {
+        --bg: #fff;
+        --paper: #fff;
+        --ink: #111;
+        --mut: #6b6b6b;
+        --green: #0b6b4f;
+        --brass: #0b6b4f;
+        --sand: #e3e3e0;
+        --tint: #f4f4f2;
+        --pbg: #fff;
+        --pfg: #111;
+        --pacc: #0b6b4f;
+        --pline: #ddd;
+        --nbg: #e8f3ee;
+        --nfg: #111;
+        --nacc: #0b6b4f;
+        --jc: #0b6b4f;
+        --hd: #111;
+        --fbg: #111;
+        --ffg: #fff;
+        --cface: #fff;
+        --crim: #111;
+        --ctick: #111;
+        --cnum: #111;
+        --chh: #111;
+        --cmh: #111;
+        --csh: #0b6b4f;
+        --pat: none;
+      }
+      html[data-theme="simple"] .panel {
+        border-right: 1px solid var(--sand);
+      }
+      html[data-theme="simple"] tr.nxt td:first-child {
+        box-shadow: inset 0.4rem 0 0 var(--jc);
+      }
+      html[data-theme="simple"] .jum {
+        background: #fff;
+        border-top: 2px solid #111;
+        border-bottom: 1px solid var(--sand);
+      }
+      html[data-theme="simple"] .slide {
+        border: 0;
+        border-top: 1px solid var(--sand);
+      }
+      /* Ramadan */
+      html[data-theme="ramadan"] {
+        --bg: linear-gradient(180deg, #070b24, #141a4d 70%, #1f1b5a);
+        --paper: rgba(255, 255, 255, 0.06);
+        --ink: #f5efdc;
+        --mut: #a9b2de;
+        --green: #f2c14e;
+        --brass: #f2c14e;
+        --sand: rgba(242, 193, 78, 0.25);
+        --tint: rgba(242, 193, 78, 0.13);
+        --pbg: #0d1340;
+        --pfg: #f5efdc;
+        --pacc: #f2c14e;
+        --pline: rgba(242, 193, 78, 0.35);
+        --nbg: #f2c14e;
+        --nfg: #0b1230;
+        --nacc: #0b1230;
+        --jc: #f6d57a;
+        --hd: #f6d57a;
+        --fbg: #050818;
+        --ffg: #f5efdc;
+        --chgfg: #0b1230;
+        --cface: #0d1340;
+        --crim: #f2c14e;
+        --ctick: #f2c14e;
+        --cnum: #f5efdc;
+        --chh: #f5efdc;
+        --cmh: #f2c14e;
+        --csh: #fff;
+        --patsz: 150px 150px;
+        --pat:
+          radial-gradient(
+            1.5px 1.5px at 18px 24px,
+            rgba(255, 255, 255, 0.75),
+            transparent 60%
+          ),
+          radial-gradient(
+            1px 1px at 70px 60px,
+            rgba(255, 255, 255, 0.5),
+            transparent 60%
+          ),
+          radial-gradient(
+            2px 2px at 120px 110px,
+            rgba(242, 193, 78, 0.8),
+            transparent 60%
+          ),
+          radial-gradient(
+            1px 1px at 40px 130px,
+            rgba(255, 255, 255, 0.5),
+            transparent 60%
+          );
+      }
+      html[data-theme="ramadan"] body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        z-index: -1;
+        background-image: var(--pat);
+        background-size: var(--patsz);
+        opacity: 0.7;
+      }
+      html[data-theme="ramadan"] .panel::before {
+        content: "";
+        position: absolute;
+        z-index: 0;
+        width: 85%;
+        aspect-ratio: 1;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath fill='%23f2c14e' d='M62 8a42 42 0 1 0 0 84a34 34 0 1 1 0-84z'/%3E%3C/svg%3E")
+          center/contain no-repeat;
+        opacity: 0.1;
+      }
+      html[data-theme="ramadan"] .main.full #slide {
+        background: #0d1340;
+      }
+      /* Mawlid */
+      html[data-theme="mawlid"] {
+        --bg: linear-gradient(160deg, #f7fbf5, #e1f0e4);
+        --paper: #fff;
+        --ink: #0f2f22;
+        --mut: #4e6b5c;
+        --green: #0e6b45;
+        --brass: #b8902f;
+        --sand: #cfe0d1;
+        --tint: #dcefe1;
+        --pbg: #0e6b45;
+        --pfg: #fff;
+        --pacc: #f0d27a;
+        --nbg: #0e6b45;
+        --nfg: #fff;
+        --nacc: #f0d27a;
+        --jc: #0e6b45;
+        --hd: #0e6b45;
+        --fbg: #0a4d32;
+        --ffg: #fff;
+        --cface: #fff;
+        --crim: #b8902f;
+        --ctick: #0e6b45;
+        --cnum: #0f2f22;
+        --chh: #0f2f22;
+        --cmh: #0e6b45;
+        --csh: #b8902f;
+      }
+      html[data-theme="mawlid"] body::after {
+        content: "";
+        position: fixed;
+        inset: 0.45rem;
+        border: 4px double #b8902f;
+        pointer-events: none;
+        z-index: 9;
+      }
+      html[data-theme="mawlid"] #screen {
+        padding: 0.45rem;
+      }
+      html[data-theme="mawlid"] .panel {
+        background-image:
+          var(--pat),
+          radial-gradient(
+            circle at 50% 40%,
+            rgba(240, 210, 122, 0.22),
+            transparent 60%
+          );
+      }
+      /* Eid */
+      html[data-theme="eid"] {
+        --bg: linear-gradient(135deg, #fff8e1, #ffe7a8);
+        --paper: #fffdf5;
+        --ink: #2a1d00;
+        --mut: #7a5f1c;
+        --green: #0a7a5a;
+        --brass: #c98a00;
+        --sand: #f0d68a;
+        --tint: #ffefbd;
+        --pbg: #0a7a5a;
+        --pfg: #fff;
+        --pacc: #ffd45a;
+        --pline: rgba(255, 255, 255, 0.35);
+        --nbg: #0a7a5a;
+        --nfg: #fff;
+        --nacc: #ffd45a;
+        --jc: #0a7a5a;
+        --hd: #0a7a5a;
+        --fbg: #065a42;
+        --ffg: #fff;
+        --cface: #fffdf5;
+        --crim: #e0a100;
+        --ctick: #0a7a5a;
+        --cnum: #2a1d00;
+        --chh: #2a1d00;
+        --cmh: #0a7a5a;
+        --csh: #d6336c;
+        --patsz: 140px 140px;
+        --pat:
+          radial-gradient(5px 5px at 20px 20px, #ffd45a, transparent 70%),
+          radial-gradient(4px 4px at 90px 40px, #ff8fb1, transparent 70%),
+          radial-gradient(5px 5px at 50px 100px, #fff, transparent 70%),
+          radial-gradient(4px 4px at 120px 120px, #7ee0c3, transparent 70%);
+      }
+      html[data-theme="eid"] body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        z-index: -1;
+        background-image: var(--pat);
+        background-size: var(--patsz);
+        opacity: 0.55;
+      }
+      html[data-theme="eid"] .greet .gt {
+        background: var(--pacc);
+        color: #064d38;
+        border-color: var(--pacc);
+      }
+
+      @media (orientation: landscape) {
+        html[data-layout="bottom"] #screen {
+          grid-template-columns: 1fr;
+          grid-template-rows: 1fr auto auto;
+        }
+        html[data-layout="bottom"] .panel {
+          grid-row: 2;
+          flex-direction: row;
+          justify-content: space-around;
+          padding: 0.5rem 1rem;
+        }
+        html[data-layout="bottom"] .main {
+          grid-row: 1;
+        }
+        html[data-layout="bottom"] footer {
+          grid-column: 1;
+          grid-row: 3;
+        }
+        html[data-layout="bottom"] #clk {
+          width: 7rem;
+        }
+        html[data-layout="bottom"] .name {
+          font-size: 1.9rem;
+        }
+        html[data-layout="bottom"] #time {
+          font-size: 3.6rem;
+        }
+        html[data-layout="bottom"] #ncount {
+          font-size: 2.6rem;
+        }
+        html[data-layout="wideright"] #screen {
+          grid-template-columns: 1.5fr 0.78fr;
+        }
+        html[data-layout="wideright"] .panel {
+          grid-column: 2;
+          grid-row: 1/3;
+        }
+        html[data-layout="wideright"] .main {
+          grid-column: 1;
+          grid-row: 1;
+        }
+        html[data-layout="wideright"] footer {
+          grid-column: 1;
+          grid-row: 2;
+        }
+        html:is([data-layout="wide"], [data-layout="wideright"]) .main {
+          grid-template-columns: 1.15fr 1fr;
+          column-gap: 1.2rem;
+        }
+      }
+      /* more themes */
+      html[data-theme="midnight"] {
+        --bg: #0a0f1f;
+        --paper: #121a33;
+        --ink: #f1ecd9;
+        --mut: #a9b1c9;
+        --green: #e3b95b;
+        --brass: #e3b95b;
+        --sand: #2a3556;
+        --tint: #1a2447;
+        --pbg: #101833;
+        --pfg: #f1ecd9;
+        --pacc: #e3b95b;
+        --pline: rgba(227, 185, 91, 0.35);
+        --nbg: #e3b95b;
+        --nfg: #0a0f1f;
+        --nacc: #0a0f1f;
+        --jc: #f4d98a;
+        --hd: #f4d98a;
+        --fbg: #060a16;
+        --ffg: #f1ecd9;
+        --chgfg: #0a0f1f;
+        --cface: #121a33;
+        --crim: #e3b95b;
+        --ctick: #e3b95b;
+        --cnum: #f1ecd9;
+        --chh: #f1ecd9;
+        --cmh: #e3b95b;
+        --csh: #fff;
+        --pat: none;
+      }
+      html[data-theme="desert"] {
+        --bg: #f4e4c8;
+        --paper: #fff6e3;
+        --ink: #3a2412;
+        --mut: #7a5a3c;
+        --green: #9a3f1d;
+        --brass: #b8651b;
+        --sand: #e0c598;
+        --tint: #f0d9aa;
+        --pbg: #9a3f1d;
+        --pfg: #fff3de;
+        --pacc: #ffd48a;
+        --pline: rgba(255, 243, 222, 0.35);
+        --nbg: #9a3f1d;
+        --nfg: #fff3de;
+        --nacc: #ffd48a;
+        --jc: #9a3f1d;
+        --hd: #9a3f1d;
+        --fbg: #6e2a12;
+        --ffg: #fff3de;
+        --chgfg: #fff;
+        --cface: #fff6e3;
+        --crim: #b8651b;
+        --ctick: #9a3f1d;
+        --cnum: #3a2412;
+        --chh: #3a2412;
+        --cmh: #9a3f1d;
+        --csh: #b8651b;
+      }
+      html[data-theme="rose"] {
+        --bg: #fbeff2;
+        --paper: #fff8fa;
+        --ink: #32151f;
+        --mut: #80566a;
+        --green: #7a2650;
+        --brass: #b0507a;
+        --sand: #ecc9d6;
+        --tint: #f6dbe5;
+        --pbg: #7a2650;
+        --pfg: #fff4f8;
+        --pacc: #ffc7dc;
+        --pline: rgba(255, 244, 248, 0.35);
+        --nbg: #7a2650;
+        --nfg: #fff4f8;
+        --nacc: #ffc7dc;
+        --jc: #7a2650;
+        --hd: #7a2650;
+        --fbg: #561a39;
+        --ffg: #fff4f8;
+        --chgfg: #fff;
+        --cface: #fff8fa;
+        --crim: #b0507a;
+        --ctick: #7a2650;
+        --cnum: #32151f;
+        --chh: #32151f;
+        --cmh: #7a2650;
+        --csh: #b0507a;
+        --pat: none;
+      }
+      html[data-theme="ocean"] {
+        --bg: #e7f3f6;
+        --paper: #f6fbfc;
+        --ink: #0d2b36;
+        --mut: #4b6c78;
+        --green: #0b5a73;
+        --brass: #0e7c8f;
+        --sand: #bcdbe3;
+        --tint: #d3eaf0;
+        --pbg: #0b5a73;
+        --pfg: #f2fbfd;
+        --pacc: #8fe0ee;
+        --pline: rgba(242, 251, 253, 0.35);
+        --nbg: #0b5a73;
+        --nfg: #f2fbfd;
+        --nacc: #8fe0ee;
+        --jc: #0b5a73;
+        --hd: #0b5a73;
+        --fbg: #083f51;
+        --ffg: #f2fbfd;
+        --chgfg: #fff;
+        --cface: #f6fbfc;
+        --crim: #0e7c8f;
+        --ctick: #0b5a73;
+        --cnum: #0d2b36;
+        --chh: #0d2b36;
+        --cmh: #0b5a73;
+        --csh: #0e7c8f;
+      }
+      html[data-theme="contrast"] {
+        --bg: #000;
+        --paper: #000;
+        --ink: #fff;
+        --mut: #d8d8d8;
+        --green: #ffe600;
+        --brass: #ffe600;
+        --sand: #555;
+        --tint: #262626;
+        --pbg: #000;
+        --pfg: #fff;
+        --pacc: #ffe600;
+        --pline: #888;
+        --nbg: #ffe600;
+        --nfg: #000;
+        --nacc: #000;
+        --jc: #ffe600;
+        --hd: #ffe600;
+        --fbg: #ffe600;
+        --ffg: #000;
+        --chgfg: #000;
+        --cface: #000;
+        --crim: #ffe600;
+        --ctick: #fff;
+        --cnum: #fff;
+        --chh: #fff;
+        --cmh: #ffe600;
+        --csh: #fff;
+        --pat: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="screen">
+      <div class="panel">
+        <div>
+          <div class="name">Madni Jamia Masjid</div>
+          <div class="ar">مسجد مدني جامع</div>
+          <div class="greet" id="greet"></div>
+        </div>
+        <svg id="clk" viewBox="-100 -100 200 200"></svg>
+        <div style="width: 100%">
+          <div id="time"></div>
+          <div class="nx" style="margin-top: 0.8rem">
+            <span>Next jamat</span>
+            <div id="nname">–</div>
+            <div id="ncount">–</div>
+          </div>
+        </div>
+      </div>
+      <div class="main">
+        <div class="dates"><span id="gd"></span><span id="hd"></span></div>
+        <table>
+          <thead>
+            <tr>
+              <th>Prayer</th>
+              <th>Begins</th>
+              <th>Jamat</th>
+            </tr>
+          </thead>
+          <tbody id="rows"></tbody>
+        </table>
+        <div class="jum">
+          <span
+            >Jumu’ah<span class="ar">الجمعة</span
+            ><small>every Friday</small></span
+          ><span id="jt"></span>
+        </div>
+        <div id="chg"></div>
+        <div class="slide" id="slide"></div>
+      </div>
+      <footer><span id="tick"></span></footer>
     </div>
-  </div>
-  <div class="main">
-    <div class="dates"><span id="gd"></span><span id="hd"></span></div>
-    <table><thead><tr><th>Prayer</th><th>Begins</th><th>Jamat</th></tr></thead><tbody id="rows"></tbody></table>
-    <div class="jum"><span>Jumu’ah<span class="ar">الجمعة</span><small>every Friday</small></span><span id="jt"></span></div>
-    <div id="chg"></div>
-    <div class="slide" id="slide"></div>
-  </div>
-  <footer><span id="tick"></span></footer>
-</div>
-<script>
-(function(){
-var DEF={b:{fajr:"06:09",sunrise:"07:50",zuhr:"11:57",asr:"14:09",maghrib:"16:02",isha:"17:17"},j:{fajr:"07:15",zuhr:"13:30",asr:"14:45",maghrib:"16:02",isha:"19:30"},
-jumuah:"13:30",off:0,h24:false,sl:{phone:true,dua:true,dhikr:true,donate:true,verse:true},ann:[],ticker:"As-salamu alaykum – Welcome to Madni Jamia Masjid. Please keep your phone on silent.",
-dim:{on:false,from:"23:00",to:"04:00"},fund:{on:false,title:"",raised:0,target:0},images:[],timetable:{}};
-var P=[["fajr","Fajr","الفجر"],["sunrise","Sunrise","الشروق"],["zuhr","Zuhr","الظهر"],["asr","Asr","العصر"],["maghrib","Maghrib","المغرب"],["isha","Isha","العشاء"]];
-var V=[["إِنَّ مَعَ الْعُسْرِ يُسْرًا","Indeed, with hardship comes ease.","Surah ash-Sharh 94:6"],["أَلَا بِذِكْرِ اللَّهِ تَطْمَئِنُّ الْقُلُوبُ","Truly, in the remembrance of Allah hearts find rest.","Surah ar-Ra‘d 13:28"],["فَاذْكُرُونِي أَذْكُرْكُمْ","Remember Me, and I will remember you.","Surah al-Baqarah 2:152"],["إِنَّ اللَّهَ مَعَ الصَّابِرِينَ","Indeed, Allah is with the patient.","Surah al-Baqarah 2:153"]];
-var S=clone(DEF),$=function(i){return document.getElementById(i)},ver=0,curKey="",si=0;
-function clone(o){return JSON.parse(JSON.stringify(o))}
-function ok(h){return /^\d\d:\d\d$/.test(h||"")}
-function merge(o){var r=clone(DEF);if(!o)return r;
- ["b","j"].forEach(function(k){if(o[k])for(var x in r[k])if(ok(o[k][x]))r[k][x]=o[k][x]});
- if(ok(o.jumuah))r.jumuah=o.jumuah;if(typeof o.off==="number")r.off=Math.max(-2,Math.min(2,o.off));r.h24=!!o.h24;
- if(o.sl)for(var s in r.sl)r.sl[s]=o.sl[s]!==false;
- if(Array.isArray(o.ann))r.ann=o.ann.filter(function(a){return typeof a==="string"&&a.trim()});
- if(typeof o.ticker==="string")r.ticker=o.ticker;
- if(o.dim){r.dim.on=!!o.dim.on;if(ok(o.dim.from))r.dim.from=o.dim.from;if(ok(o.dim.to))r.dim.to=o.dim.to}
- if(o.fund){r.fund={on:!!o.fund.on,title:String(o.fund.title||""),raised:+o.fund.raised||0,target:+o.fund.target||0}}
- if(Array.isArray(o.images))r.images=o.images.filter(function(i){return i&&typeof i.name==="string"});
- if(o.timetable&&typeof o.timetable==="object")r.timetable=o.timetable;
- ver=o.ver||0;return r}
-function load(o){S=merge(o);curKey="";si=0;tick()}
-function dkey(d){return d.getFullYear()+"-"+("0"+(d.getMonth()+1)).slice(-2)+"-"+("0"+d.getDate()).slice(-2)}
-function dayT(d){var r=S.timetable[dkey(d)]||{};return{b:Object.assign({},S.b,r.b),j:Object.assign({},S.j,r.j)}}
-function at(h,d){var p=h.split(":"),x=new Date(d);x.setHours(+p[0],+p[1],0,0);return x}
-function fmt(h){var p=h.split(":"),n=+p[0];if(S.h24)return[("0"+n).slice(-2)+":"+p[1],""];return[(n%12||12)+":"+p[1],n<12?"am":"pm"]}
-function put(el,h){var f=fmt(h);el.textContent=f[0];if(f[1]){var s=document.createElement("span");s.className="ap";s.textContent=f[1];el.appendChild(s)}}
-function mk(c,cl,tx){var d=document.createElement(c);d.className=cl||"";d.textContent=tx;return d}
+    <script>
+      (function () {
+        var DEF = {
+          b: {
+            fajr: "06:09",
+            sunrise: "07:50",
+            zuhr: "11:57",
+            asr: "14:09",
+            maghrib: "16:02",
+            isha: "17:17",
+          },
+          j: {
+            fajr: "07:15",
+            zuhr: "13:30",
+            asr: "14:45",
+            maghrib: "16:02",
+            isha: "19:30",
+          },
+          jumuah: "13:30",
+          off: 0,
+          h24: false,
+          sl: {
+            phone: true,
+            dua: true,
+            dhikr: true,
+            donate: true,
+            verse: true,
+          },
+          ann: [],
+          ticker:
+            "As-salamu alaykum – Welcome to Madni Jamia Masjid. Please keep your phone on silent.",
+          theme: "classic",
+          layout: "left",
+          greet: "",
+          dim: { on: false, from: "23:00", to: "04:00" },
+          fund: { on: false, title: "", raised: 0, target: 0 },
+          images: [],
+          timetable: {},
+          order: ["dates", "table", "jum", "chg", "slide"],
+          hide: [],
+        };
+        var SEC = ["dates", "table", "jum", "chg", "slide"];
+        var P = [
+          ["fajr", "Fajr", "الفجر"],
+          ["sunrise", "Sunrise", "الشروق"],
+          ["zuhr", "Zuhr", "الظهر"],
+          ["asr", "Asr", "العصر"],
+          ["maghrib", "Maghrib", "المغرب"],
+          ["isha", "Isha", "العشاء"],
+        ];
+        var THEMES = [
+            "classic",
+            "glass",
+            "liquid",
+            "simple",
+            "ramadan",
+            "mawlid",
+            "eid",
+            "midnight",
+            "desert",
+            "rose",
+            "ocean",
+            "contrast",
+          ],
+          LAYS = [
+            "left",
+            "right",
+            "top",
+            "focus",
+            "bottom",
+            "wide",
+            "wideright",
+          ],
+          theme = "classic";
+        var GR = {
+          ramadan: ["Ramadan Mubarak", "رَمَضَانُ مُبَارَك"],
+          mawlid: ["Mawlid al-Nabi ﷺ", "مَوْلِدُ النَّبِيِّ"],
+          eid: ["Eid Mubarak", "عِيدٌ مُبَارَك"],
+        };
+        var V = [
+          [
+            "إِنَّ مَعَ الْعُسْرِ يُسْرًا",
+            "Indeed, with hardship comes ease.",
+            "Surah ash-Sharh 94:6",
+          ],
+          [
+            "أَلَا بِذِكْرِ اللَّهِ تَطْمَئِنُّ الْقُلُوبُ",
+            "Truly, in the remembrance of Allah hearts find rest.",
+            "Surah ar-Ra‘d 13:28",
+          ],
+          [
+            "فَاذْكُرُونِي أَذْكُرْكُمْ",
+            "Remember Me, and I will remember you.",
+            "Surah al-Baqarah 2:152",
+          ],
+          [
+            "إِنَّ اللَّهَ مَعَ الصَّابِرِينَ",
+            "Indeed, Allah is with the patient.",
+            "Surah al-Baqarah 2:153",
+          ],
+        ];
+        var S = clone(DEF),
+          $ = function (i) {
+            return document.getElementById(i);
+          },
+          ver = 0,
+          curKey = "",
+          si = 0;
+        function clone(o) {
+          return JSON.parse(JSON.stringify(o));
+        }
+        function ok(h) {
+          return /^\d\d:\d\d$/.test(h || "");
+        }
+        function merge(o) {
+          var r = clone(DEF);
+          if (!o) return r;
+          ["b", "j"].forEach(function (k) {
+            if (o[k]) for (var x in r[k]) if (ok(o[k][x])) r[k][x] = o[k][x];
+          });
+          if (ok(o.jumuah)) r.jumuah = o.jumuah;
+          if (typeof o.off === "number")
+            r.off = Math.max(-2, Math.min(2, o.off));
+          r.h24 = !!o.h24;
+          if (o.sl) for (var s in r.sl) r.sl[s] = o.sl[s] !== false;
+          if (Array.isArray(o.ann))
+            r.ann = o.ann.filter(function (a) {
+              return typeof a === "string" && a.trim();
+            });
+          if (typeof o.ticker === "string") r.ticker = o.ticker;
+          if (Array.isArray(o.order)) {
+            var q = o.order.filter(function (k, i) {
+              return SEC.indexOf(k) >= 0 && o.order.indexOf(k) === i;
+            });
+            SEC.forEach(function (k) {
+              if (q.indexOf(k) < 0) q.push(k);
+            });
+            r.order = q;
+          }
+          if (Array.isArray(o.hide))
+            r.hide = o.hide.filter(function (k) {
+              return SEC.indexOf(k) >= 0;
+            });
+          if (THEMES.indexOf(o.theme) >= 0) r.theme = o.theme;
+          if (LAYS.indexOf(o.layout) >= 0) r.layout = o.layout;
+          if (typeof o.greet === "string") r.greet = o.greet.slice(0, 60);
+          if (o.dim) {
+            r.dim.on = !!o.dim.on;
+            if (ok(o.dim.from)) r.dim.from = o.dim.from;
+            if (ok(o.dim.to)) r.dim.to = o.dim.to;
+          }
+          if (o.fund) {
+            r.fund = {
+              on: !!o.fund.on,
+              title: String(o.fund.title || ""),
+              raised: +o.fund.raised || 0,
+              target: +o.fund.target || 0,
+            };
+          }
+          if (Array.isArray(o.images))
+            r.images = o.images.filter(function (i) {
+              return i && typeof i.name === "string";
+            });
+          if (o.timetable && typeof o.timetable === "object")
+            r.timetable = o.timetable;
+          ver = o.ver || 0;
+          return r;
+        }
+        function look() {
+          var q = new URLSearchParams(location.search),
+            t = q.get("theme"),
+            l = q.get("layout");
+          t = THEMES.indexOf(t) >= 0 ? t : S.theme;
+          l = LAYS.indexOf(l) >= 0 ? l : S.layout;
+          theme = t;
+          var h = document.documentElement;
+          h.setAttribute("data-theme", t);
+          h.setAttribute("data-layout", l);
+          var g = $("greet"),
+            d = GR[t],
+            tx = S.greet || (d ? d[0] : "");
+          g.innerHTML = "";
+          if (tx) g.appendChild(mk("div", "gt", tx));
+          if (!S.greet && d) g.appendChild(mk("div", "ar", d[1]));
+          g.style.display = tx ? "block" : "none";
+        }
+        function load(o) {
+          S = merge(o);
+          curKey = "";
+          si = 0;
+          look();
+          arrange();
+          tick();
+        }
 
-(function(){var h='<circle r="97" fill="#f6f0df" stroke="#a67c2e" stroke-width="4"/>';
- for(var i=0;i<60;i++){var a=i*6*Math.PI/180,big=i%5===0,r1=big?80:86;h+='<line x1="'+(Math.sin(a)*r1).toFixed(1)+'" y1="'+(-Math.cos(a)*r1).toFixed(1)+'" x2="'+(Math.sin(a)*91).toFixed(1)+'" y2="'+(-Math.cos(a)*91).toFixed(1)+'" stroke="#1d4a39" stroke-width="'+(big?2.6:1)+'"/>'}
- for(i=1;i<=12;i++){a=i*30*Math.PI/180;h+='<text x="'+(Math.sin(a)*65).toFixed(1)+'" y="'+(-Math.cos(a)*65+8).toFixed(1)+'" text-anchor="middle" font-size="22" font-weight="800" fill="#1f1c14" font-family="Alegreya Sans,sans-serif">'+i+'</text>'}
- h+='<line id="hh" y1="8" y2="-46" stroke="#1f1c14" stroke-width="6" stroke-linecap="round"/><line id="mh" y1="10" y2="-66" stroke="#1d4a39" stroke-width="4" stroke-linecap="round"/><line id="sh" y1="18" y2="-74" stroke="#a67c2e" stroke-width="1.8"/><circle r="5" fill="#a67c2e"/>';$("clk").innerHTML=h})();
+        function arrange() {
+          var m = document.querySelector(".main"),
+            el = {
+              dates: m.querySelector(".dates"),
+              table: m.querySelector("table"),
+              jum: m.querySelector(".jum"),
+              chg: $("chg"),
+              slide: $("slide"),
+            },
+            lay = document.documentElement.getAttribute("data-layout"),
+            two =
+              /^(top|wide|wideright)$/.test(lay) &&
+              matchMedia("(orientation:landscape)").matches,
+            rows = [];
+          SEC.forEach(function (k) {
+            el[k].classList.toggle("off", S.hide.indexOf(k) >= 0);
+          });
+          var ord = S.order.filter(function (k) {
+            return S.hide.indexOf(k) < 0;
+          });
+          if (two) {
+            var right = ord.filter(function (k) {
+              return k !== "dates" && k !== "table";
+            });
+            rows.push("auto");
+            el.dates.style.gridColumn = "1 / 3";
+            el.dates.style.gridRow = "1";
+            el.table.style.gridColumn = "1";
+            el.table.style.gridRow = "2 / -1";
+            right.forEach(function (k, i) {
+              el[k].style.gridColumn = "2";
+              el[k].style.gridRow = String(i + 2);
+              rows.push(k === "slide" ? "minmax(0,1fr)" : "auto");
+            });
+          } else
+            ord.forEach(function (k, i) {
+              el[k].style.gridColumn = "1";
+              el[k].style.gridRow = String(i + 1);
+              rows.push(k === "slide" ? "minmax(0,1fr)" : "auto");
+            });
+          m.style.gridTemplateRows = rows.join(" ");
+        }
+        window.addEventListener("resize", function () {
+          arrange();
+        });
+        function dkey(d) {
+          return (
+            d.getFullYear() +
+            "-" +
+            ("0" + (d.getMonth() + 1)).slice(-2) +
+            "-" +
+            ("0" + d.getDate()).slice(-2)
+          );
+        }
+        function dayT(d) {
+          var r = S.timetable[dkey(d)] || {};
+          return {
+            b: Object.assign({}, S.b, r.b),
+            j: Object.assign({}, S.j, r.j),
+          };
+        }
+        function at(h, d) {
+          var p = h.split(":"),
+            x = new Date(d);
+          x.setHours(+p[0], +p[1], 0, 0);
+          return x;
+        }
+        function fmt(h) {
+          var p = h.split(":"),
+            n = +p[0];
+          if (S.h24) return [("0" + n).slice(-2) + ":" + p[1], ""];
+          return [(n % 12 || 12) + ":" + p[1], n < 12 ? "am" : "pm"];
+        }
+        function put(el, h) {
+          var f = fmt(h);
+          el.textContent = f[0];
+          if (f[1]) {
+            var s = document.createElement("span");
+            s.className = "ap";
+            s.textContent = f[1];
+            el.appendChild(s);
+          }
+        }
+        function mk(c, cl, tx) {
+          var d = document.createElement(c);
+          d.className = cl || "";
+          d.textContent = tx;
+          return d;
+        }
 
-function build(T){var tb=$("rows");tb.innerHTML="";
- P.forEach(function(p){var tr=document.createElement("tr");tr.id="r-"+p[0];
-  var a=document.createElement("td");a.appendChild(mk("span","",p[1]));a.appendChild(mk("span","ar",p[2]));tr.appendChild(a);
-  var b=document.createElement("td");put(b,T.b[p[0]]);tr.appendChild(b);
-  var j=document.createElement("td");j.className="j";if(p[0]==="sunrise")j.textContent="–";else put(j,T.j[p[0]]);tr.appendChild(j);tb.appendChild(tr)});
- put($("jt"),S.jumuah);$("tick").textContent=S.ticker+"        ✦        "+S.ticker;
- var tm=new Date();tm.setDate(tm.getDate()+1);var out=[];
- if(S.timetable[dkey(tm)]){var N=dayT(tm);["fajr","zuhr","asr","maghrib","isha"].forEach(function(k){if(N.j[k]!==T.j[k]){var f=fmt(N.j[k]);out.push(k[0].toUpperCase()+k.slice(1)+" "+f[0]+f[1])}})}
- var c=$("chg");c.style.display=out.length?"block":"none";c.textContent=out.length?"Jamat changes tomorrow: "+out.join(", "):""}
+        (function () {
+          var h = '<circle class="cf" r="97"/>';
+          for (var i = 0; i < 60; i++) {
+            var a = (i * 6 * Math.PI) / 180,
+              big = i % 5 === 0,
+              r1 = big ? 80 : 86;
+            h +=
+              '<line class="ct" x1="' +
+              (Math.sin(a) * r1).toFixed(1) +
+              '" y1="' +
+              (-Math.cos(a) * r1).toFixed(1) +
+              '" x2="' +
+              (Math.sin(a) * 91).toFixed(1) +
+              '" y2="' +
+              (-Math.cos(a) * 91).toFixed(1) +
+              '" stroke-width="' +
+              (big ? 2.6 : 1) +
+              '"/>';
+          }
+          for (i = 1; i <= 12; i++) {
+            a = (i * 30 * Math.PI) / 180;
+            h +=
+              '<text class="cn" x="' +
+              (Math.sin(a) * 65).toFixed(1) +
+              '" y="' +
+              (-Math.cos(a) * 65 + 8).toFixed(1) +
+              '" text-anchor="middle" font-size="22">' +
+              i +
+              "</text>";
+          }
+          h +=
+            '<line class="chh" id="hh" y1="8" y2="-46" stroke-width="6" stroke-linecap="round"/><line class="cmh" id="mh" y1="10" y2="-66" stroke-width="4" stroke-linecap="round"/><line class="csh" id="sh" y1="18" y2="-74" stroke-width="1.8"/><circle class="cd" r="5"/>';
+          $("clk").innerHTML = h;
+        })();
 
-function tick(){var now=new Date(),fri=now.getDay()===5,T=dayT(now);
- if(curKey!==dkey(now)){curKey=dkey(now);build(T)}
- var hr=now.getHours(),mi=now.getMinutes(),se=now.getSeconds(),hm=("0"+hr).slice(-2)+":"+("0"+mi).slice(-2);
- put($("time"),hm);
- $("hh").setAttribute("transform","rotate("+((hr%12)*30+mi*.5)+")");$("mh").setAttribute("transform","rotate("+(mi*6+se*.1)+")");$("sh").setAttribute("transform","rotate("+se*6+")");
- $("gd").textContent=now.toLocaleDateString("en-GB",{weekday:"long",day:"numeric",month:"long",year:"numeric"});
- try{var hd=new Date(now);hd.setDate(hd.getDate()+S.off);$("hd").textContent=new Intl.DateTimeFormat("en-GB-u-ca-islamic-umalqura",{day:"numeric",month:"long",year:"numeric"}).format(hd)}catch(e){}
- var jm=function(k){return k==="zuhr"&&fri?S.jumuah:T.j[k]},nxt=null,cur=null;
- P.forEach(function(p){if(at(T.b[p[0]],now)<=now)cur=p[0]});
- for(var i=0;i<P.length;i++){var k=P[i][0];if(k==="sunrise")continue;var t=at(jm(k),now);if(t>now){nxt={k:k,t:t,n:k==="zuhr"&&fri?"Jumu’ah":P[i][1],h:jm(k)};break}}
- if(!nxt){var tm=new Date(now);tm.setDate(tm.getDate()+1);var N=dayT(tm);nxt={k:"fajr",t:at(N.j.fajr,tm),n:"Fajr",h:N.j.fajr}}
- var d=Math.max(0,Math.round((nxt.t-now)/1000)),h=Math.floor(d/3600),m=Math.floor(d%3600/60),sc=d%60,f=fmt(nxt.h);
- $("nname").textContent=nxt.n+" "+f[0]+" "+f[1];$("ncount").textContent=(h?h+":":"")+("0"+m).slice(-2)+":"+("0"+sc).slice(-2);$("ncount").className=d<600?"soon":"";
- P.forEach(function(p){var r=$("r-"+p[0]);if(r)r.className=(p[0]==="sunrise"?"sun ":"")+(p[0]===cur?"cur ":"")+(p[0]===nxt.k?"nxt":"")});
- var dm=false;if(S.dim.on){var n=hr*60+mi,a=S.dim.from.split(":"),b=S.dim.to.split(":"),x=+a[0]*60+ +a[1],y=+b[0]*60+ +b[1];dm=x<=y?(n>=x&&n<y):(n>=x||n<y)}
- document.body.classList.toggle("dim",dm)}
+        function build(T) {
+          var tb = $("rows");
+          tb.innerHTML = "";
+          P.forEach(function (p) {
+            var tr = document.createElement("tr");
+            tr.id = "r-" + p[0];
+            var a = document.createElement("td");
+            var nm = mk("span", "", p[1]);
+            if (theme === "ramadan" && (p[0] === "fajr" || p[0] === "maghrib"))
+              nm.appendChild(
+                mk("small", "tg", p[0] === "fajr" ? "Suhoor ends" : "Iftar"),
+              );
+            a.appendChild(nm);
+            a.appendChild(mk("span", "ar", p[2]));
+            tr.appendChild(a);
+            var b = document.createElement("td");
+            put(b, T.b[p[0]]);
+            tr.appendChild(b);
+            var j = document.createElement("td");
+            j.className = "j";
+            if (p[0] === "sunrise") j.textContent = "–";
+            else put(j, T.j[p[0]]);
+            tr.appendChild(j);
+            tb.appendChild(tr);
+          });
+          put($("jt"), S.jumuah);
+          $("tick").textContent = S.ticker + "        ✦        " + S.ticker;
+          var tm = new Date();
+          tm.setDate(tm.getDate() + 1);
+          var out = [];
+          if (S.timetable[dkey(tm)]) {
+            var N = dayT(tm);
+            ["fajr", "zuhr", "asr", "maghrib", "isha"].forEach(function (k) {
+              if (N.j[k] !== T.j[k]) {
+                var f = fmt(N.j[k]);
+                out.push(k[0].toUpperCase() + k.slice(1) + " " + f[0] + f[1]);
+              }
+            });
+          }
+          var c = $("chg");
+          c.style.display = out.length ? "block" : "none";
+          c.textContent = out.length
+            ? "Jamat changes tomorrow: " + out.join(", ")
+            : "";
+        }
 
-function slides(){var L=[],doy=Math.floor((new Date()-new Date(new Date().getFullYear(),0,0))/864e5);
- S.ann.forEach(function(a){L.push({k:"Announcement",big:a})});
- S.images.forEach(function(i){if(i.show)L.push({img:"/uploads/"+encodeURIComponent(i.name)})});
- if(S.fund.on&&S.fund.target>0)L.push({k:"Masjid fund",t:S.fund.title||"Our appeal",bar:Math.min(100,S.fund.raised/S.fund.target*100),n:"£"+S.fund.raised.toLocaleString("en-GB")+" raised of £"+S.fund.target.toLocaleString("en-GB")});
- if(S.sl.verse){var v=V[doy%V.length];L.push({k:"Verse of the day",verse:v[0],n:v[1]+" – "+v[2]})}
- if(S.sl.phone)L.push({k:"Before you enter",t:"Please switch off your mobile phone",n:"Out of respect for the house of Allah ﷻ and the worshippers, keep your phone silent."});
- if(S.sl.dua)L.push({k:"Sunnahs of the masjid",t:"Du‘a for entering and leaving",it:[
-  {l:"Entering",a:"اللَّهُمَّ افْتَحْ لِي أَبْوَابَ رَحْمَتِكَ",t:"Allāhumma-ftaḥ lī abwāba raḥmatik",e:"O Allah, open for me the doors of Your mercy."},
-  {l:"Leaving",a:"اللَّهُمَّ إِنِّي أَسْأَلُكَ مِنْ فَضْلِكَ",t:"Allāhumma innī as’aluka min faḍlik",e:"O Allah, I ask You of Your bounty."}],n:"Enter with the right foot, leave with the left, and send blessings upon the Prophet ﷺ."});
- if(S.sl.dhikr)L.push({k:"After every fard prayer",t:"Dhikr after salah",it:[
-  {l:"Istighfār ×3",a:"أَسْتَغْفِرُ اللَّهَ",t:"Astaghfirullāh",e:"I seek forgiveness from Allah."},
-  {l:"Salām",a:"اللَّهُمَّ أَنْتَ السَّلَامُ وَمِنْكَ السَّلَامُ",t:"Allāhumma anta-s-salām wa minka-s-salām",e:"O Allah, You are Peace and from You comes peace."},
-  {l:"Tasbīḥ 33 · 33 · 34",a:"سُبْحَانَ اللَّهِ · الْحَمْدُ لِلَّهِ · اللَّهُ أَكْبَرُ",t:"SubḥānAllāh · Alḥamdulillāh · Allāhu Akbar",e:"Glory be to Allah, praise be to Allah, Allah is the Greatest."}],n:"Also recite Ayat al-Kursi (2:255) after every fard prayer."});
- if(S.sl.donate)L.push({k:"Support your masjid",t:"Give generously, build lastingly",n:"Contactless and bank card donations are accepted in the masjid. Donate online at icea.org.uk. Registered charity no. 1058664."});
- return L}
-function fit(el){var fs=parseFloat(getComputedStyle(document.documentElement).fontSize);el.style.fontSize=fs+"px";
- for(var i=0;i<40&&(el.scrollHeight>el.clientHeight+1||el.scrollWidth>el.clientWidth+1);i++){fs*=.95;el.style.fontSize=fs+"px"}}
-function show(){var L=slides(),el=$("slide"),mn=document.querySelector(".main");
- if(!L.length){el.textContent="";setTimeout(show,15000);return}
- el.style.opacity=0;setTimeout(function(){var s=L[si%L.length];si++;el.innerHTML="";mn.classList.toggle("full",!!s.img);
-  if(s.img){var im=document.createElement("img");im.src=s.img;im.alt="";el.appendChild(im)}
-  if(s.k)el.appendChild(mk("div","k",s.k));
-  if(s.big)el.appendChild(mk("div","big",s.big));
-  if(s.verse)el.appendChild(mk("div","verse ar",s.verse));
-  if(s.t)el.appendChild(mk("h2","",s.t));
-  if(s.bar!=null){var b=document.createElement("div");b.className="bar";var i=document.createElement("i");i.style.width=s.bar+"%";b.appendChild(i);el.appendChild(b)}
-  if(s.it){var w=document.createElement("div");w.className="items";s.it.forEach(function(x){var d=document.createElement("div");d.className="it";
-   d.appendChild(mk("div","l",x.l));d.appendChild(mk("div","a ar",x.a));d.appendChild(mk("div","t",x.t));d.appendChild(mk("div","e",x.e));w.appendChild(d)});el.appendChild(w)}
-  if(s.n)el.appendChild(mk("div","note",s.n));
-  el.style.opacity=1;fit(el);if(s.img)im.onload=function(){fit(el)};
-  setTimeout(show,s.img?30000:15000)},700)}
+        function tick() {
+          var now = new Date(),
+            fri = now.getDay() === 5,
+            T = dayT(now);
+          if (curKey !== dkey(now)) {
+            curKey = dkey(now);
+            build(T);
+          }
+          var hr = now.getHours(),
+            mi = now.getMinutes(),
+            se = now.getSeconds(),
+            hm = ("0" + hr).slice(-2) + ":" + ("0" + mi).slice(-2);
+          put($("time"), hm);
+          $("hh").setAttribute(
+            "transform",
+            "rotate(" + ((hr % 12) * 30 + mi * 0.5) + ")",
+          );
+          $("mh").setAttribute(
+            "transform",
+            "rotate(" + (mi * 6 + se * 0.1) + ")",
+          );
+          $("sh").setAttribute("transform", "rotate(" + se * 6 + ")");
+          $("gd").textContent = now.toLocaleDateString("en-GB", {
+            weekday: "long",
+            day: "numeric",
+            month: "long",
+            year: "numeric",
+          });
+          try {
+            var hd = new Date(now);
+            hd.setDate(hd.getDate() + S.off);
+            $("hd").textContent = new Intl.DateTimeFormat(
+              "en-GB-u-ca-islamic-umalqura",
+              { day: "numeric", month: "long", year: "numeric" },
+            ).format(hd);
+          } catch (e) {}
+          var jm = function (k) {
+              return k === "zuhr" && fri ? S.jumuah : T.j[k];
+            },
+            nxt = null,
+            cur = null;
+          P.forEach(function (p) {
+            if (at(T.b[p[0]], now) <= now) cur = p[0];
+          });
+          for (var i = 0; i < P.length; i++) {
+            var k = P[i][0];
+            if (k === "sunrise") continue;
+            var t = at(jm(k), now);
+            if (t > now) {
+              nxt = {
+                k: k,
+                t: t,
+                n: k === "zuhr" && fri ? "Jumu’ah" : P[i][1],
+                h: jm(k),
+              };
+              break;
+            }
+          }
+          if (!nxt) {
+            var tm = new Date(now);
+            tm.setDate(tm.getDate() + 1);
+            var N = dayT(tm);
+            nxt = { k: "fajr", t: at(N.j.fajr, tm), n: "Fajr", h: N.j.fajr };
+          }
+          var d = Math.max(0, Math.round((nxt.t - now) / 1000)),
+            h = Math.floor(d / 3600),
+            m = Math.floor((d % 3600) / 60),
+            sc = d % 60,
+            f = fmt(nxt.h);
+          $("nname").textContent = nxt.n + " " + f[0] + " " + f[1];
+          $("ncount").textContent =
+            (h ? h + ":" : "") +
+            ("0" + m).slice(-2) +
+            ":" +
+            ("0" + sc).slice(-2);
+          $("ncount").className = d < 600 ? "soon" : "";
+          P.forEach(function (p) {
+            var r = $("r-" + p[0]);
+            if (r)
+              r.className =
+                (p[0] === "sunrise" ? "sun " : "") +
+                (p[0] === cur ? "cur " : "") +
+                (p[0] === nxt.k ? "nxt" : "");
+          });
+          var dm = false;
+          if (S.dim.on) {
+            var n = hr * 60 + mi,
+              a = S.dim.from.split(":"),
+              b = S.dim.to.split(":"),
+              x = +a[0] * 60 + +a[1],
+              y = +b[0] * 60 + +b[1];
+            dm = x <= y ? n >= x && n < y : n >= x || n < y;
+          }
+          document.body.classList.toggle("dim", dm);
+        }
 
-function sync(){fetch("/api/settings",{cache:"no-store"}).then(function(r){return r.json()}).then(function(o){
-  if((o.ver||0)!==ver){load(o);try{localStorage.setItem("mjs",JSON.stringify(o))}catch(e){}}}).catch(function(){})}
-try{var c=localStorage.getItem("mjs");if(c)S=merge(JSON.parse(c))}catch(e){}
-tick();setInterval(tick,1000);show();sync();setInterval(sync,30000);
-})();
-</script>
-</body>
+        function slides() {
+          var L = [],
+            doy = Math.floor(
+              (new Date() - new Date(new Date().getFullYear(), 0, 0)) / 864e5,
+            );
+          S.ann.forEach(function (a) {
+            L.push({ k: "Announcement", big: a });
+          });
+          if (theme === "ramadan")
+            L.push({
+              k: "Ramadan",
+              t: "Du‘a when breaking the fast",
+              it: [
+                {
+                  l: "Iftar",
+                  a: "ذَهَبَ الظَّمَأُ وَابْتَلَّتِ الْعُرُوقُ وَثَبَتَ الْأَجْرُ إِنْ شَاءَ اللَّهُ",
+                  t: "Dhahaba-ẓ-ẓama’u wa-btallati-l-ʿurūqu wa thabata-l-ajru in shā’ Allāh",
+                  e: "The thirst has gone, the veins are moistened, and the reward is certain, if Allah wills.",
+                },
+              ],
+              n: "Ramadan Mubarak. May Allah accept our fasting and prayers.",
+            });
+          if (theme === "mawlid")
+            L.push({
+              k: "Salawāt",
+              t: "Send blessings upon the Prophet ﷺ",
+              it: [
+                {
+                  l: "Ṣalawāt",
+                  a: "اللَّهُمَّ صَلِّ وَسَلِّمْ عَلَى سَيِّدِنَا مُحَمَّدٍ",
+                  t: "Allāhumma ṣalli wa sallim ʿalā sayyidinā Muḥammad",
+                  e: "O Allah, send blessings and peace upon our master Muhammad.",
+                },
+              ],
+              n: "Whoever sends one blessing upon me, Allah sends ten upon him. (Muslim)",
+            });
+          if (theme === "eid")
+            L.push({
+              k: "Eid Mubarak",
+              t: "Takbīr and greeting",
+              it: [
+                {
+                  l: "Takbīr",
+                  a: "اللَّهُ أَكْبَرُ اللَّهُ أَكْبَرُ لَا إِلَهَ إِلَّا اللَّهُ وَاللَّهُ أَكْبَرُ اللَّهُ أَكْبَرُ وَلِلَّهِ الْحَمْدُ",
+                  t: "Allāhu akbar, Allāhu akbar, lā ilāha illā-llāh, wa-llāhu akbar, Allāhu akbar, wa lillāhi-l-ḥamd",
+                  e: "Allah is the Greatest, there is no god but Allah, and all praise belongs to Allah.",
+                },
+                {
+                  l: "Greeting",
+                  a: "تَقَبَّلَ اللَّهُ مِنَّا وَمِنْكُمْ",
+                  t: "Taqabbala-llāhu minnā wa minkum",
+                  e: "May Allah accept it from us and from you.",
+                },
+              ],
+            });
+          S.images.forEach(function (i) {
+            if (i.show)
+              L.push({ img: "/uploads/" + encodeURIComponent(i.name) });
+          });
+          if (S.fund.on && S.fund.target > 0)
+            L.push({
+              k: "Masjid fund",
+              t: S.fund.title || "Our appeal",
+              bar: Math.min(100, (S.fund.raised / S.fund.target) * 100),
+              n:
+                "£" +
+                S.fund.raised.toLocaleString("en-GB") +
+                " raised of £" +
+                S.fund.target.toLocaleString("en-GB"),
+            });
+          if (S.sl.verse) {
+            var v = V[doy % V.length];
+            L.push({
+              k: "Verse of the day",
+              verse: v[0],
+              n: v[1] + " – " + v[2],
+            });
+          }
+          if (S.sl.phone)
+            L.push({
+              k: "Before you enter",
+              t: "Please switch off your mobile phone",
+              n: "Out of respect for the house of Allah ﷻ and the worshippers, keep your phone silent.",
+            });
+          if (S.sl.dua)
+            L.push({
+              k: "Sunnahs of the masjid",
+              t: "Du‘a for entering and leaving",
+              it: [
+                {
+                  l: "Entering",
+                  a: "اللَّهُمَّ افْتَحْ لِي أَبْوَابَ رَحْمَتِكَ",
+                  t: "Allāhumma-ftaḥ lī abwāba raḥmatik",
+                  e: "O Allah, open for me the doors of Your mercy.",
+                },
+                {
+                  l: "Leaving",
+                  a: "اللَّهُمَّ إِنِّي أَسْأَلُكَ مِنْ فَضْلِكَ",
+                  t: "Allāhumma innī as’aluka min faḍlik",
+                  e: "O Allah, I ask You of Your bounty.",
+                },
+              ],
+              n: "Enter with the right foot, leave with the left, and send blessings upon the Prophet ﷺ.",
+            });
+          if (S.sl.dhikr)
+            L.push({
+              k: "After every fard prayer",
+              t: "Dhikr after salah",
+              it: [
+                {
+                  l: "Istighfār ×3",
+                  a: "أَسْتَغْفِرُ اللَّهَ",
+                  t: "Astaghfirullāh",
+                  e: "I seek forgiveness from Allah.",
+                },
+                {
+                  l: "Salām",
+                  a: "اللَّهُمَّ أَنْتَ السَّلَامُ وَمِنْكَ السَّلَامُ",
+                  t: "Allāhumma anta-s-salām wa minka-s-salām",
+                  e: "O Allah, You are Peace and from You comes peace.",
+                },
+                {
+                  l: "Tasbīḥ 33 · 33 · 34",
+                  a: "سُبْحَانَ اللَّهِ · الْحَمْدُ لِلَّهِ · اللَّهُ أَكْبَرُ",
+                  t: "SubḥānAllāh · Alḥamdulillāh · Allāhu Akbar",
+                  e: "Glory be to Allah, praise be to Allah, Allah is the Greatest.",
+                },
+              ],
+              n: "Also recite Ayat al-Kursi (2:255) after every fard prayer.",
+            });
+          if (S.sl.donate)
+            L.push({
+              k: "Support your masjid",
+              t: "Give generously, build lastingly",
+              n: "Contactless and bank card donations are accepted in the masjid. Donate online at icea.org.uk. Registered charity no. 1058664.",
+            });
+          return L;
+        }
+        function fit(el) {
+          var fs =
+            parseFloat(getComputedStyle(document.documentElement).fontSize) *
+            1.6;
+          el.style.fontSize = fs + "px";
+          for (
+            var i = 0;
+            i < 60 &&
+            (el.scrollHeight > el.clientHeight + 1 ||
+              el.scrollWidth > el.clientWidth + 1);
+            i++
+          ) {
+            fs *= 0.96;
+            el.style.fontSize = fs + "px";
+          }
+        }
+        function show() {
+          var L = slides(),
+            el = $("slide"),
+            mn = document.querySelector(".main");
+          if (!L.length) {
+            el.textContent = "";
+            setTimeout(show, 15000);
+            return;
+          }
+          el.style.opacity = 0;
+          setTimeout(function () {
+            var s = L[si % L.length];
+            si++;
+            el.innerHTML = "";
+            mn.classList.toggle("full", !!s.img);
+            if (s.img) {
+              var im = document.createElement("img");
+              im.src = s.img;
+              im.alt = "";
+              el.appendChild(im);
+            }
+            if (s.k) el.appendChild(mk("div", "k", s.k));
+            if (s.big) el.appendChild(mk("div", "big", s.big));
+            if (s.verse) el.appendChild(mk("div", "verse ar", s.verse));
+            if (s.t) el.appendChild(mk("h2", "", s.t));
+            if (s.bar != null) {
+              var b = document.createElement("div");
+              b.className = "bar";
+              var i = document.createElement("i");
+              i.style.width = s.bar + "%";
+              b.appendChild(i);
+              el.appendChild(b);
+            }
+            if (s.it) {
+              var w = document.createElement("div");
+              w.className = "items";
+              s.it.forEach(function (x) {
+                var d = document.createElement("div");
+                d.className = "it";
+                d.appendChild(mk("div", "l", x.l));
+                d.appendChild(mk("div", "a ar", x.a));
+                d.appendChild(mk("div", "t", x.t));
+                d.appendChild(mk("div", "e", x.e));
+                w.appendChild(d);
+              });
+              el.appendChild(w);
+            }
+            if (s.n) el.appendChild(mk("div", "note", s.n));
+            el.style.opacity = 1;
+            fit(el);
+            if (s.img)
+              im.onload = function () {
+                fit(el);
+              };
+            setTimeout(show, s.img ? 30000 : 15000);
+          }, 700);
+        }
+
+        function sync() {
+          fetch("/api/settings", { cache: "no-store" })
+            .then(function (r) {
+              return r.json();
+            })
+            .then(function (o) {
+              if ((o.ver || 0) !== ver) {
+                load(o);
+                try {
+                  localStorage.setItem("mjs", JSON.stringify(o));
+                } catch (e) {}
+              }
+            })
+            .catch(function () {});
+        }
+        try {
+          var c = localStorage.getItem("mjs");
+          if (c) S = merge(JSON.parse(c));
+        } catch (e) {}
+        look();
+        arrange();
+        tick();
+        setInterval(tick, 1000);
+        show();
+        sync();
+        setInterval(sync, 30000);
+      })();
+    </script>
+  </body>
 </html>

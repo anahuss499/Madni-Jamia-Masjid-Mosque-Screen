@@ -1,1 +1,1 @@
-{"name":"masjid-screen","version":"1.0.0","description":"Mosque prayer-time screen with admin panel","scripts":{"start":"node server.js"},"engines":{"node":">=18"}}
+{"name":"masjid-screen","version":"1.0.0","description":"Mosque prayer-time screen with admin panel","scripts":{"start":"node server.js"},"engines":{"node":">=18"},"devDependencies":{"@eslint/js":"^10.0.1","eslint":"^10.15.0","globals":"^17.14.0"}}

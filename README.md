@@ -17,3 +17,8 @@ The screen refreshes its settings every 30 seconds.
 ## Deploying
 Any Node host works (VPS, Raspberry Pi, Render, Railway). Put it behind HTTPS and keep ADMIN_PASSWORD secret.
 Fonts and OCR load from Google Fonts / jsDelivr; the screen falls back to system fonts if offline.
+
+## Styles and layouts
+Admin > Appearance: Classic, Glass, Liquid, Simple, Ramadan, Mawlid, Eid, and four layouts.
+Preview any look without saving: http://localhost:3000/?theme=eid&layout=top
+Windows PowerShell: `$env:ADMIN_PASSWORD="yourpassword"; node server.js`
